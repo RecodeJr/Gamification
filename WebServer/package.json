@@ -1,21 +1,21 @@
 {
-  "name": "Nome_do_App",
+  "name": "Gamification",
   "version": "1.0.0",
-  "description": "Descrição",
+  "description": "Sistema de gerenciamento da Recode Jr.",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com.git"
+    "url": "https://github.com/RecodeJr/Gamification"
   },
-  "author": "Nome do Desenvolvedor",
-  "license": "MIT",
+  "author": "Equipe Reocode Jr.",
+  "license": "GPL3",
   "bugs": {
-    "url": "https://github.com/issues"
+    "url": "https://github.com/RecodeJr/Gamification/issues"
   },
-  "homepage": "https://github.com",
+  "homepage": "http://www.recodejr.com",
   "dependencies": {
     "backbone": "^1.3.3",
     "blueimp-md5": "^2.3.0",
