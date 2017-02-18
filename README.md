@@ -1,4 +1,5 @@
 # Gamification
+![](imgs/logo_recode.png "Recode Jr.")
 -----------------------------
 
 
@@ -14,3 +15,6 @@ Na pasta do WebServer você roda os seguintes comandos para rodar:
 - ```npm install ```
 - ```node app.js ```
 - O sistema estará rodando no ```localhost:3000```
+
+
+![](imgs/diagram.png "Arquitetura a ser utilizada")
