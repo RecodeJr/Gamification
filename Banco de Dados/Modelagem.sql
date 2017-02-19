@@ -7,15 +7,15 @@ USE gamification;
 
 /** Cria a tabela usuario **/
 create table usuario(
-		idUser int auto_increment,
-		nome varchar(255),
-		email varchar(100),
-		senha varchar(40),
-		matricula varchar(10),
-		userIDHabi varchar(36),
-		tokenHabi varchar(36),
-		userGit varchar(40),
-		userFacebook BIGINT,
+	idUser int auto_increment,
+	nome varchar(255),
+	email varchar(100),
+	senha varchar(40),
+	matricula varchar(10),
+	userIDHabi varchar(36),
+	tokenHabi varchar(36),
+	userGit varchar(40),
+	userFacebook BIGINT,
     constraint idUser primary key (idUser,matricula)
 );
 /** Cria a tabela categoria **/
