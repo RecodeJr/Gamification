@@ -5,37 +5,51 @@ CREATE SCHEMA gamification;
 que ele deve utilizar para realizar comandos do MySQL **/
 USE gamification;
 
+
+/** Cria a tabela classe **/
+create table classe(
+    idClasse int auto_increment,
+    nomeClasse varchar(100) NOT NULL,
+    pontuacaoMinima float NOT NULL DEFAULT 0.0,
+    pontosNivelAcima float NOT NULL DEFAULT 0.0,
+    pontosNivelAtual float NOT NULL DEFAULT 0.0,
+    pontosNivelAbaixo float NOT NULL DEFAULT 0.0,
+    constraint idClasseNome primary key (idClasse,nomeClasse)
+);
+
+
 /** Cria a tabela usuario **/
 create table usuario(
     idUser int auto_increment,
-    nome varchar(255),
-    email varchar(100),
-    senha varchar(40),
-    matricula varchar(10),
+    nome varchar(255) NOT NULL,
+    email varchar(100) NOT NULL,
+    senha varchar(40) NOT NULL,
+    dataIngresso varchar(10) NOT NULL,
+    matricula varchar(10) NOT NULL,
     userIDHabi varchar(36),
     tokenHabi varchar(36),
-    userGit varchar(40),
+    userGit varchar(40) NOT NULL,
     userFacebook BIGINT,
     constraint idUser primary key (idUser,matricula)
 );
 /** Cria a tabela categoria **/
 create table categoria(
-    idCategoria int,
-    nomeCategoria varchar(100),
+    idCategoria int auto_increment,
+    nomeCategoria varchar(100) NOT NULL,
     constraint idCategoria primary key (idCategoria)
 );
 
 /** Cria a tabela status_tarefa **/
 create table status_tarefa(
-    idStatusT int,
-    nomeStatus varchar(100),
+    idStatusT int auto_increment,
+    nomeStatus varchar(100) NOT NULL,
     constraint idStatusT primary key (idStatusT)
 );
 
 /** Cria a tabela tag **/
 create table tag(
-    idTag int,
-    nomeTag varchar(100),
+    idTag int auto_increment,
+    nomeTag varchar(100) NOT NULL,
     constraint idTag primary key (idTag,nomeTag)
 );
 
@@ -43,14 +57,17 @@ create table tag(
 /** Cria a tabela tarefa **/
 create table tarefa(
     idTarefa int auto_increment,
-    titulo VARCHAR(100),
-    descricao VARCHAR(255),
-    pontuacao int,
-    idStatusT int,
-    idUserCriador int,
-    dataCriacao varchar(10),
+    titulo VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    idClasse int NOT NULL,
+    idStatusT int NOT NULL,
+    idUserCriador int NOT NULL,
+    tarefaFixa bool NOT NULL DEFAULT 0,
+    pontuacaoBonus float DEFAULT 0,
+    dataCriacao varchar(10) NOT NULL,
     dataLimite varchar(10),
     constraint idStatusT foreign key (idStatusT) references status_tarefa(idStatusT),
+    constraint idClasseT foreign key (idClasse) references classe(idClasse),
     constraint idUserCriador foreign key (idUserCriador) references usuario(idUser),
     constraint idTarefa primary key (idTarefa)
 );
@@ -67,10 +84,11 @@ create table categoria_tarefa(
 
 /** Cria a tabela registro **/
 create table registro(
-    idTarefa int,
-    idStatusT int,
-    idUserResp int,
-    constraint TarefaRespons primary key (idTarefa,idUserResp),
+    idRegistro int auto_increment,
+    idTarefa int NOT NULL,
+    idStatusT int NOT NULL,
+    idUserResp int NOT NULL,
+    constraint idRegistro primary key (idRegistro),
     constraint idTarefaR foreign key (idTarefa) references tarefa(idTarefa),
     constraint idUserResp foreign key (idUserResp) references usuario(idUser),
     constraint idStatusTarefa foreign key (idStatusT) references status_tarefa(idStatusT)
@@ -78,10 +96,11 @@ create table registro(
 
 /** Cria a tabela post **/
 create table post(
-    idPost int,
-    titulo varchar(100),
-    idAutor int,
-    endPost varchar(255),
+    idPost int auto_increment,
+    titulo varchar(100) NOT NULL,
+    idAutor int NOT NULL,
+    dataPost varchar(10) NOT NULL,
+    endPost varchar(255) NOT NULL,
     constraint idPost primary key (idPost),
     constraint idAutor foreign key (idAutor) references usuario(idUser)
 );
