@@ -16,7 +16,7 @@ create table usuario(
 	tokenHabi varchar(36),
 	userGit varchar(40),
 	userFacebook BIGINT,
-    constraint idUser primary key (idUser,matricula)
+  constraint idUser primary key (idUser,matricula)
 );
 /** Cria a tabela categoria **/
 create table categoria(
@@ -29,14 +29,14 @@ create table categoria(
 create table status_tarefa(
 	idStatusT int,
 	nomeStatus varchar(100),
-    constraint idStatusT primary key (idStatusT)
+  constraint idStatusT primary key (idStatusT)
 );
 
 /** Cria a tabela tag **/
 create table tag(
 	idTag int,
 	nomeTag varchar(100),
-    constraint idTag primary key (idTag,nomeTag)
+  constraint idTag primary key (idTag,nomeTag)
 );
 
 
@@ -52,7 +52,7 @@ create table tarefa(
 	dataLimite varchar(10),
 	constraint idStatusT foreign key (idStatusT) references status_tarefa(idStatusT),
 	constraint idUserCriador foreign key (idUserCriador) references usuario(idUser),
-    constraint idTarefa primary key (idTarefa)
+  constraint idTarefa primary key (idTarefa)
 );
 
 
@@ -79,18 +79,18 @@ create table registro(
 /** Cria a tabela post **/
 create table post(
 	idPost int,
-    titulo varchar(100),
-    idAutor int,
-    endPost varchar(255),
-    constraint idPost primary key (idPost),
-    constraint idAutor foreign key (idAutor) references usuario(idUser)
+  titulo varchar(100),
+  idAutor int,
+  endPost varchar(255),
+  constraint idPost primary key (idPost),
+  constraint idAutor foreign key (idAutor) references usuario(idUser)
 );
 
 /** Cria a tabela tags_post **/
 create table tags_post(
 	idPost int,
 	idTag int,
-    constraint idPostTag primary key (idPost,idTag),
+  constraint idPostTag primary key (idPost,idTag),
 	constraint idPostT foreign key (idPost) references post(idPost),
 	constraint idTagP foreign key (idTag) references tag(idTag)
 );
