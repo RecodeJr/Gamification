@@ -1,2 +1,2 @@
 'use strict';
-angular.module('Gamification', ['ngRoute','my.controllers'])
+angular.module('Gamification', ['ngRoute','my.controllers', 'my.routes'])

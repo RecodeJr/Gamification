@@ -12,10 +12,10 @@ var mysqlModel = require('mysql-model');
 // Conexão com o banco de dados
 var connection = mysqlModel.createConnection({
     host: 'localhost',
-    user: '',
-    password: '',
+    user: 'recodejr',
+    password: '123456789',
     connectionLimit: 1,
-    database: ''
+    database: 'gamification'
 });
 
 
@@ -23,5 +23,5 @@ var connection = mysqlModel.createConnection({
 // chave privada utilizada para criptografia do usuário.
 // Criar outras entidades para o acesso ao banco.
 module.exports = {
-    secret: ''  //Colocar chave gerada 
+    secret: ''  //Colocar chave gerada
 };
