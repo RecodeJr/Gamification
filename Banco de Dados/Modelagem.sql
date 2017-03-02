@@ -17,6 +17,13 @@ create table classe(
     constraint idClasseNome primary key (idClasse,nomeClasse)
 );
 
+/** Cria a tabela sexo **/
+create table sexo(
+    idSexo int auto_increment,
+    nomeSexo varchar(40) NOT NULL,
+    constraint idSexo primary key(idSexo,nomeSexo)
+);
+
 
 /** Cria a tabela usuario **/
 create table usuario(
@@ -24,13 +31,16 @@ create table usuario(
     nome varchar(255) NOT NULL,
     email varchar(100) NOT NULL,
     senha varchar(40) NOT NULL,
+    sexo int NOT NULL,
+    ativado bool NOT NULL DEFAULT 0,
     dataIngresso varchar(10) NOT NULL,
     matricula varchar(10) NOT NULL,
     userIDHabi varchar(36),
     tokenHabi varchar(36),
     userGit varchar(40) NOT NULL,
     userFacebook BIGINT,
-    constraint idUser primary key (idUser,matricula)
+    constraint idUser primary key (idUser,matricula),
+    constraint sexo foreign key (sexo) references sexo(idSexo)
 );
 /** Cria a tabela categoria **/
 create table categoria(
