@@ -39,6 +39,7 @@ create table usuario(
     tokenHabi varchar(36),
     userGit varchar(40) NOT NULL,
     userFacebook BIGINT,
+    CONSTRAINT uc_usuario UNIQUE (email),
     constraint idUser primary key (idUser,matricula),
     constraint sexo foreign key (sexo) references sexo(idSexo)
 );
@@ -123,3 +124,7 @@ create table tags_post(
     constraint idPostT foreign key (idPost) references post(idPost),
     constraint idTagP foreign key (idTag) references tag(idTag)
 );
+
+
+INSERT INTO `gamification`.`sexo` (`idSexo`, `nomeSexo`) VALUES ('1', 'Masculino');
+INSERT INTO `gamification`.`sexo` (`idSexo`, `nomeSexo`) VALUES ('2', 'Feminino');

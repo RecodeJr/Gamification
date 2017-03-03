@@ -19,12 +19,10 @@ angular.module('my.routes', [])
         controller: "addTarefaCtrl"
     })
     .when("/cadastro", {
-        templateUrl : "/views/cadastro.html",
-        controller: "cadastroCtrl"
+        templateUrl : "/views/cadastro.html"
     })
     .when("/login", {
-        templateUrl : "/views/login.html",
-        controller: "loginCtrl"
+        templateUrl : "/views/login.html"
     })
     .when("/ranking", {
         templateUrl : "/views/ranking.html",

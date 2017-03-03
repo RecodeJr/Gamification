@@ -2,17 +2,17 @@
 
       <div align="center" class="span9">
          <div class="col-md-4"></div>
-      <form class="col-xs-12 col-md-4">
+      <form class="col-xs-12 col-md-4" ng-controller="loginCtrl" ng-submit="logar()">
           <img src="img/logo.png" style="max-width: 100%;height: auto !important;" alt="Responsive image"><br>
         <div class="form-group">
           <label for="login">Login</label>
-          <input type="text" class="form-control" id="nome" placeholder="Login" ng-model="nome" required>
+          <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.email" required>
           <label for="Senha">Senha</label>
-          <input type="password" class="form-control" id="senha" placeholder="Senha" ng-model="senha" required>
+          <input type="password" class="form-control" id="senha" placeholder="Senha" ng-model="user.senha" required>
         </div>
         <button type="submit" class="btn btn-default">Entrar</button>
 
-        <p>Precisa de uma conta ? <a href="/cadastro.html">Clique aqui</a></p>
+        <p>Precisa de uma conta ? <a href="#/cadastro">Clique aqui</a></p>
 
 
        </form>
