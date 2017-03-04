@@ -28,9 +28,9 @@ angular.module('my.routes', [])
         templateUrl : "/views/ranking.html",
         controller: "rankingCtrl"
     })
-    .when("/adm", {
-        templateUrl : "/views/adm.html",
-        controller: "admCtrl"
+    .when("/tarefas/:tipoTarefa", {
+        templateUrl : "/views/tarefas.html",
+        controller: "tarefasCtrl"
 
     })
     .when('/404', {

@@ -96,7 +96,7 @@ angular.module('my.controllers', [])
     }])
 
     // Controller responsavel pela página de adm
-    .controller('admCtrl', ['$rootScope', function($rootScope) {
+    .controller('tarefasCtrl', ['$rootScope','$routeParams','$scope', function($rootScope,$routeParams,$scope) {
       if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
-
+      $scope.tipoTarefa = $routeParams.tipoTarefa
     }])
