@@ -125,6 +125,19 @@ create table tags_post(
     constraint idTagP foreign key (idTag) references tag(idTag)
 );
 
-
+/** Insere os Sexos **/
 INSERT INTO `gamification`.`sexo` (`idSexo`, `nomeSexo`) VALUES ('1', 'Masculino');
 INSERT INTO `gamification`.`sexo` (`idSexo`, `nomeSexo`) VALUES ('2', 'Feminino');
+
+/** Insere as Classes **/
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('NewBie', '0', '0', '0', '0');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Trainee', '100', '5', '10', '30');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Estagiario', '300', '30', '70', '100');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Junior', '500', '30', '100', '150');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Pleno', '700', '20', '150', '200');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Senior', '900', '50', '200', '250');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Master', '1500', '100', '250', '400');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Gold', '3000', '200', '500', '1000');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Diamond', '6000', '0', '0', '2000');
+
+/** Insere as Categorias **/
