@@ -105,10 +105,12 @@ app.use('/', express.static(__dirname + '/www'));
 
 
 // Quando quiser rodar a aplicação sem especificar a porta use esse comando
-var port = process.env.PORT_APP || 3000
-app.listen(process.env.PORT_APP, function() {
-   console.log('Rodando porta' + port);
+
+app.set('port', (process.env.PORT || 5000));
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
+
 
 // app.listen(3000, function() {
 //     console.log('Rodando porta 3000');
