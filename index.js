@@ -1,9 +1,8 @@
-//Servidor web
+var express = require('express')
+var app = express()
 
+app.set('port', (process.env.PORT || 5000))
 
-//Express é a framework utilizado para o Back-End.
-var express = require('express');
-var app = express();
 
 // //Usado para manipulação do Body.
 // var bodyParser = require('body-parser')
@@ -102,16 +101,6 @@ app.use('/', express.static(__dirname + '/www'));
 // });
 
 
-
-
-// Quando quiser rodar a aplicação sem especificar a porta use esse comando
-
-app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
-
-
-// app.listen(3000, function() {
-//     console.log('Rodando porta 3000');
-// });
+  console.log("Node app is running at localhost:" + app.get('port'))
+})

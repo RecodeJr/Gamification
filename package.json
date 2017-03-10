@@ -1,27 +1,29 @@
 {
   "name": "Gamification",
   "version": "0.0.1",
-  "description": "Sistema de gerenciamento da Recode Jr.",
-  "engines": {
-    "node": "6.10.0"
-  },
-  "main": "app.js",
+  "description": "Sistema de gerenciamento da Recode Jr",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "express": "4.13.3"
+    "express": "^4.13.3"
+  },
+  "engines": {
+    "node": "6.10.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/RecodeJr/Gamification"
   },
   "keywords": [
-    "Gamification",
-    "recodejr",
+    "gamification",
+    "recode",
     "ej"
+  ],
+  "author": "Recode Jr",
+  "contributors": [
+    "Joshua Passos <joshuapassos@gmail.com> (http://joshuapassos.github.io)"
   ],
   "license": "GPL3"
 }
-
-
