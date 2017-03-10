@@ -86,4 +86,10 @@ RoutUsuario.use(function(req, res, next) {
     }
 });
 
+
+RoutUsuario.get('/ranking', function(req,res){
+  ranking = new dbfun.Ranking();
+  
+})
+
 module.exports = RoutUsuario;

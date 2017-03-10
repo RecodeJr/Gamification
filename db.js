@@ -25,6 +25,10 @@ module.exports = {
     Usuario: connection.extend({
         tableName: "usuario"
     }),
+    Ranking: connection.extend({
+        tableName: "usuario,classe,tarefa,registro"
+    }),
+
     Sexo: connection.extend({tableName: "sexo"}),
     secret: 'lolololololol' //Colocar chave gerada
 };

@@ -3,6 +3,8 @@ angular.module('my.controllers', [])
     // Controller responsavel pela página Home
     .controller('homeCtrl', ['$rootScope', function($rootScope) {
         if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
+        
+
         $rootScope.teste = ":)";
         $rootScope.nome = "Recode Jr.";
     }])
@@ -56,7 +58,10 @@ angular.module('my.controllers', [])
                 location.reload(); //Att a pag
                 location.replace('#/'); //Redireciona para a pag inicial
               }else{
-                console.log("Login/Senha incorretos");
+                var msg = "Login/Senha incorretos"
+                $scope.msg = msg;
+                console.log(msg);
+                // alert(msg)
               }
             }, function(err){
               console.log(err)

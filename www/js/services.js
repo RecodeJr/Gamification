@@ -1,7 +1,7 @@
 angular.module('my.services', [])
 
 .factory('API', ['$http' , function($http,$httpProvider) {
-  var baseUrl = "http://localhost:3000"; //"http://192.168.1.104:3300"
+  var baseUrl = "http://localhost:5000"; //"http://192.168.1.104:3300"
           return {
             cadastroUsuario: function(data, success, error) {
               $http.post(baseUrl + '/cadastro', data).success(success).error(error)
