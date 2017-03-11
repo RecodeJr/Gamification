@@ -15,8 +15,7 @@ angular.module('my.routes', [])
         controller: "homeCtrl"
     })
     .when("/addtarefa", {
-        templateUrl : "/views/addtarefa.html",
-        controller: "addTarefaCtrl"
+        templateUrl : "/views/addtarefa.html"
     })
     .when("/cadastro", {
         templateUrl : "/views/cadastro.html"

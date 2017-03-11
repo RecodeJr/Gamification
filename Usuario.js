@@ -8,8 +8,9 @@ var sha1 = require('sha1');
 
 
 RoutUsuario.post('/auth', function(req, res) {
-    usuariof = new dbfun.Usuario();
+    var usuariof = new dbfun.Usuario();
     var r = /^(?:(?:[\w`~!#$%^&*\-=+;:{}'|,?\/]+(?:(?:\.(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)*"|[\w`~!#$%^&*\-=+;:{}'|,?\/]+))*\.[\w`~!#$%^&*\-=+;:{}'|,?\/]+)?)|(?:"(?:\\?[\w`~!#$%^&*\-=+;:{}'|,?\/\.()<>\[\] @]|\\"|\\\\)+"))@(?:[a-zA-Z\d\-]+(?:\.[a-zA-Z\d\-]+)*|\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])$/;
+    //Com a expressao regular r, podemos garantir que a string extraida será um email válido.
     var email = req.body.email.match(r);
     var senha = sha1(req.body.senha);
     if (email != null) {
@@ -68,7 +69,6 @@ RoutUsuario.use(function(req, res, next) {
         jwt.verify(token, dbfun.secret, function(err, token_decoded) {
             if (err) {
                 // Se a verificação falhar
-                console.log(req.headers['x-access-token']);
                 return res.json({
                     status: false,
                     message: "Falha para autentificar a Token."
@@ -83,13 +83,39 @@ RoutUsuario.use(function(req, res, next) {
             }
 
         });
+    }else{
+      res.json({
+          status: false,
+          message: "Falha para autentificar a Token."
+      })
     }
 });
 
 
 RoutUsuario.get('/ranking', function(req,res){
-  ranking = new dbfun.Ranking();
-  
-})
+  var ranking = new dbfun.Ranking();
+
+});
+
+
+RoutUsuario.post('/criarTarefa', function(req,res){
+
+});
+
+
+
+RoutUsuario.get('/classes', function(req,res){
+  classe = new dbfun.Classe();
+  classe.find('all', {
+      fields: "idClasse,nomeClasse",
+  }, function(err, rows, fields) {
+      if (err) throw err;
+      res.json(rows);
+  });
+});
+
+
+
+
 
 module.exports = RoutUsuario;

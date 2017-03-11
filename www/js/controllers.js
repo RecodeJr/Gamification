@@ -1,19 +1,43 @@
 angular.module('my.controllers', [])
 
+
+.config(function($httpProvider) {
+   $httpProvider.interceptors.push(function(){
+        return {
+        'request': function(config) {
+                    config.headers = config.headers || {};
+                    if (localStorage.getItem('ngStorage-token') != null) {
+                        config.headers['x-access-token'] = localStorage.getItem('ngStorage-token').split("\"")[1];
+                    }
+                    return config;
+                }
+             }
+
+   })
+})
+
+
+
     // Controller responsavel pela página Home
     .controller('homeCtrl', ['$rootScope', function($rootScope) {
         if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
-        
+
 
         $rootScope.teste = ":)";
         $rootScope.nome = "Recode Jr.";
     }])
 
     // Controller responsavel pela página de AddTarefa
-    .controller('addTarefaCtrl', ['$rootScope', function($rootScope) {
+    .controller('addTarefaCtrl', ['$rootScope','$scope','API', function($rootScope,$scope,API) {
       if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
-
-
+      API.getClasse(function(res) {
+          if (res != undefined)
+              //Manda para view as classes disponiveis.
+              $scope.listaClasse = res
+      }, function(err) {
+          console.log(err)
+      })
+      console.log($scope)
     }])
 
     // Controller responsavel pela página de Cadastro

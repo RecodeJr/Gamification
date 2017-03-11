@@ -7,7 +7,10 @@ angular.module('my.services', [])
               $http.post(baseUrl + '/cadastro', data).success(success).error(error)
             },
             getSexo: function(success, error) {
-              $http.get(baseUrl + '/getSexo').success(success).error(error)
+              $http.get(baseUrl + '/sexo').success(success).error(error)
+            },
+            getClasse: function(success, error) {
+              $http.get(baseUrl + '/usuario/classes').success(success).error(error)
             },
             loginUsuario: function(data,success,error){
               $http.post(baseUrl + '/usuario/auth', data).success(success).error(error)

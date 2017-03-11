@@ -49,8 +49,10 @@ var Usuario = require('./Usuario');
 app.use('/usuario', Usuario)
 
 
-app.get('/getSexo', function(req, res) {
-    sexo = new dbfun.Sexo();
+
+//Essa funçao retorna os sexos cadastrados no banco de dados
+app.get('/sexo', function(req, res) {
+    var sexo = new dbfun.Sexo();
     sexo.find('all', {
         fields: "idSexo,nomeSexo",
     }, function(err, rows, fields) {
@@ -60,8 +62,11 @@ app.get('/getSexo', function(req, res) {
 });
 
 
+
+//Funçao para o cadastro dos usuários
 app.post('/cadastro', function(req, res) {
     var data = new Date();
+    //Gera a data atual para salvar no banco Formato: DD/MM/YYYY
     var dataIngresso = ("0" + data.getDate()).substr(-2) + "/" +
         ("0" + (data.getMonth() + 1)).substr(-2) + "/" + data.getFullYear();
     var user = {
@@ -77,6 +82,9 @@ app.post('/cadastro', function(req, res) {
         userFacebook: req.body.userFacebook == undefined ? 0 : req.body.userFacebook
     }
     var listUser = [user.nome, user.email, user.senha, user.sexo, user.dataIngresso, user.matricula, user.userIDHabi, user.tokenHabi, user.userGit, user.userFacebook]
+    //Essa função pega os campos do usuário e faz uma validação de tipos. Ela utiliza o Map/Reduce de FP.
+    //Com a função map eu faço um verificador lógico e ela me retorna um novo vetor de tipos booleanos
+    //Depois aplicamos a funcao reduce que aplica o OU em cada termo da lista. Ao fim teremos um True ou False.
     var verify = listUser.map((a) => a == undefined).reduce((a, b) => a || b)
     if (!verify) {
         usuario = new dbfun.Usuario(user)

@@ -11,7 +11,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><center>Menu</center></h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" ng-controller="addTarefaCtrl">
                     <!-- interior ao menu -->
 
                     <table class="table table-bordered">
@@ -21,7 +21,7 @@
                                     <!-- caractere em branco após o span tarefa -->
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1"><b>Tarefa:   ㅤㅤ </b></span>
-                                        <input type="text" class="form-control" placeholder="Digite o nome da tarefa" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
                                     </div>
                                 </th>
 
@@ -34,42 +34,42 @@
                                     <!-- Campo de texto grande 10 linhas x 40 colunas -->
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1"><b>Descrição:</b></span>
-                                        <textarea name="comentário" class="form-control" placeholder="Digite a descrição da tarefa" rows="10" cols="40"></textarea>
+                                        <textarea name="comentário" class="form-control" placeholder="" rows="10" cols="40"></textarea>
                                     </div>
                                     <tr>
                                         <td>
                                             <!-- pontos e prazo na mesma div -->
+                                            <input type="checkbox" ng-model="tarefaFixa" aria-label=""><span class="" id="basic-addon1"><b>  Tarefa fixa</b></span><br></br>
                                             <div class="input-group">
-                                                <span class="input-group-addon" id="basic-addon1"><b>Pontos:   ㅤ </b></span>
+                                                <span class="input-group-addon" id="basic-addon1"><b>Bônus:   ㅤ </b></span>
                                                 <input type="text" class="form-control" placeholder="00" aria-describedby="basic-addon1">
 
                                                 <span class="input-group-addon" id="basic-addon1"><b>Prazo:   ㅤㅤ </b></span>
                                                 <input type="date" class="form-control" placeholder="00/00/00" aria-describedby="basic-addon1">
+
                                             </div>
 
+                                            <div class="list-group">
+                                                </br>
+                                                <div class="item">
 
+                                                </div>
+
+                                                <div class="item">
+                                                    <label class="item item-select " id="cadastro-select13">  <span class="input-label">Classe</span>
+                                              <select name="classe" class="form-control"  ng-model="cl.classe" ng-options="classe.nomeClasse for classe in listaClasse"   required >
+                                            </select><br>
+                                          </div>
+                                        </div>
+                                        <div align="center"><button type="button" class="btn btn-default">Cadastrar</button></div>
                                         </td>
+
 
 
                                     </tr>
                         </tbody>
                     </table>
 
-                    <div class="dropup">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-Níveis
-<span class="caret"></span>
-</button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#">Trivial</a></li>
-                            <li><a href="#">Fácil</a></li>
-                            <li><a href="#">Médio</a></li>
-                            <li><a href="#">Difícil</a></li>
-                        </ul>
-                        <!-- Caracteres em branco para separar o ADD dos níveis -->
-                        ㅤ ㅤㅤㅤ ㅤㅤㅤ ㅤㅤㅤ ㅤㅤㅤㅤ ㅤㅤㅤ ㅤㅤㅤ ㅤㅤㅤ ㅤㅤㅤ ㅤㅤ
-                        <button type="button" class="btn btn-default">ADD</button>
-                    </div>
                     <!-- interior ao menu -->
                 </div>
             </div>
