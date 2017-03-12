@@ -17,6 +17,13 @@ create table classe(
     constraint idClasseNome primary key (idClasse,nomeClasse)
 );
 
+/** Cria a tabela sexo **/
+create table sexo(
+    idSexo int auto_increment,
+    nomeSexo varchar(40) NOT NULL,
+    constraint idSexo primary key(idSexo,nomeSexo)
+);
+
 
 /** Cria a tabela usuario **/
 create table usuario(
@@ -24,13 +31,17 @@ create table usuario(
     nome varchar(255) NOT NULL,
     email varchar(100) NOT NULL,
     senha varchar(40) NOT NULL,
+    sexo int NOT NULL,
+    ativado bool NOT NULL DEFAULT 0,
     dataIngresso varchar(10) NOT NULL,
     matricula varchar(10) NOT NULL,
     userIDHabi varchar(36),
     tokenHabi varchar(36),
     userGit varchar(40) NOT NULL,
     userFacebook BIGINT,
-    constraint idUser primary key (idUser,matricula)
+    CONSTRAINT uc_usuario UNIQUE (email),
+    constraint idUser primary key (idUser,matricula),
+    constraint sexo foreign key (sexo) references sexo(idSexo)
 );
 /** Cria a tabela categoria **/
 create table categoria(
@@ -113,3 +124,26 @@ create table tags_post(
     constraint idPostT foreign key (idPost) references post(idPost),
     constraint idTagP foreign key (idTag) references tag(idTag)
 );
+
+/** Insere os Sexos **/
+INSERT INTO `gamification`.`sexo` (`idSexo`, `nomeSexo`) VALUES ('1', 'Masculino');
+INSERT INTO `gamification`.`sexo` (`idSexo`, `nomeSexo`) VALUES ('2', 'Feminino');
+
+/** Insere as Classes **/
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('NewBie', '0', '0', '0', '0');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Trainee', '100', '5', '10', '30');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Estagiario', '300', '30', '70', '100');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Junior', '500', '30', '100', '150');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Pleno', '700', '20', '150', '200');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Senior', '900', '50', '200', '250');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Master', '1500', '100', '250', '400');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Gold', '3000', '200', '500', '1000');
+INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNivelAcima`, `pontosNivelAtual`, `pontosNivelAbaixo`) VALUES ('Diamond', '6000', '0', '0', '2000');
+
+/** Insere as status_tarefa **/
+
+INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('1', 'Pendente');
+INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('2', 'Em Desenvolvimento');
+INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('3', 'Finalizada');
+INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('4', 'Cancelada');
+INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('5', 'Expirada');

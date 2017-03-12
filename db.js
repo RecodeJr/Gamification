@@ -1,4 +1,3 @@
-
 //Biblioteca para facilitar uso do Mysql
 var mysqlModel = require('mysql-model');
 //  Add no module.exports cada objeto com as tabelas q eles manipulam
@@ -12,10 +11,10 @@ var mysqlModel = require('mysql-model');
 // Conexão com o banco de dados
 var connection = mysqlModel.createConnection({
     host: 'localhost',
-    user: '',
-    password: '',
+    user: 'recodejr',
+    password: '123456789',
     connectionLimit: 1,
-    database: ''
+    database: 'gamification'
 });
 
 
@@ -23,5 +22,15 @@ var connection = mysqlModel.createConnection({
 // chave privada utilizada para criptografia do usuário.
 // Criar outras entidades para o acesso ao banco.
 module.exports = {
-    secret: ''  //Colocar chave gerada 
+    Usuario: connection.extend({
+        tableName: "usuario"
+    }),
+    Ranking: connection.extend({
+        tableName: "usuario,classe,tarefa,registro"
+    }),
+    Classe: connection.extend({
+        tableName: "classe"
+    }),
+    Sexo: connection.extend({tableName: "sexo"}),
+    secret: 'lolololololol' //Colocar chave gerada
 };

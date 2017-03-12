@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="margin-top: 25px;">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><center>Cadastro Gamefication</center></h3>
+                </div>
+                <div class="panel-body">
+                    <form data-toggle="validator" role="form" ng-controller="cadastroCtrl" name="formx">
+
+                        <label ng-class="{ 'has-error' : formx.nome.$invalid && !formx.nome.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">Nome Completo</span><input type="text" class="form-control" name="nome" ng-model="user.nome" ng-minlength="3" aria-describedby="basic-addon1"></label><br>
+
+
+                        <label ng-class="{ 'has-error' : formx.email.$invalid && !formx.email.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">Email</span><input  name="email" type="email"  class="form-control" ng-model="user.email" placeholder="" aria-describedby="basic-addon1"  required></label><br>
+
+                        <div ng-class="{ 'has-error' : formx.consenha.$viewValue != formx.senha.$viewValue && formx.consenha.$touched  }">
+                            <label style="margin-bottom: 15px;" class="item item-select" id="cadastro-select13">  <span class="input-label">Senha</span><input name="senha" type="password" class="form-control" ng-model="user.senha" placeholder="" aria-describedby="basic-addon1"  required></label>
+
+                            <label style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13">  <span class="input-label">Repita a senha</span><input name="consenha" type="password" class="form-control" placeholder="" aria-describedby="basic-addon1"  required></label><br>
+                        </div>
+
+                        <label ng-class="{ 'has-error' : formx.sexo.$invalid && !formx.sexo.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13">  <span class="input-label">Sexo</span>
+                          <select name="sexo" class="form-control"  ng-model="user.sexo" ng-options="sexo.nomeSexo for sexo in listaSexo"   required >
+                        </select></label><br>
+
+                        <label ng-class="{ 'has-error' : formx.matricula.$invalid && !formx.matricula.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">Matricula</span>  <input ng-minlength="10" ng-maxlength="10" name="matricula" type="text" pattern="[0-9]{10}" class="form-control" ng-model="user.matricula" placeholder="" aria-describedby="basic-addon1"  required></label><br>
+                        <label ng-class="{ 'has-error' : formx.userIDHabi.$invalid && !formx.userIDHabi.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">User ID Habitica</span><input ng-minlength="36" ng-maxlength="36" name="userIDHabi" type="text" class="form-control" ng-model="user.userIDHabi" placeholder="" aria-describedby="basic-addon1"  required></label>
+                        <label ng-class="{ 'has-error' : formx.tokenHabi.$invalid && !formx.tokenHabi.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">API Token Habitica</span><input ng-minlength="36" ng-maxlength="36" name="tokenHabi" type="text" class="form-control" ng-model="user.tokenHabi" placeholder="" aria-describedby="basic-addon1"  required></label><br>
+                        <label ng-class="{ 'has-error' : formx.userGit.$invalid && !formx.userGit.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">User Github</span><input name="userGit" type="text" class="form-control" ng-model="user.userGit" placeholder="" aria-describedby="basic-addon1"></label>
+                        <!-- <label ng-class="{ 'has-error' : formx.userFacebook.$invalid && !formx.userFacebook.$pristine }" style="margin-bottom: 15px;" class="item item-select " id="cadastro-select13"><span class="input-label">User Facebook</span><input name="userFacebook" type="text" class="form-control" ng-model="user.userFacebook" placeholder="" aria-describedby="basic-addon1" ></label> -->
+                        <center><button ng-disabled="formx.$invalid" ng-click="cadastrar()" type="button" class="btn btn-default">Cadastrar</button></center>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

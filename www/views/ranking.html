@@ -1,0 +1,65 @@
+<div class="container">
+
+  <simple-navbar></simple-navbar>
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="panel panel-primary" align="center">
+                <div class="panel-body">
+                    <b><h3 id="nome-user">Username</h3></b>
+                </div>
+                <div class="panel-footer">
+                    <img src="img/habitica.png" id="picture-user" style="width:75px;height:75px;" />
+                    <p id="points-user"><b>999</b> pontos</p>
+                    <b><p id="class-user">User class</p></b>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><center>Ranking Gamification</center></h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <center>Posição</center>
+                                </th>
+                                <th>
+                                    <center>Usuário</center>
+                                </th>
+                                <th>
+                                    <center>Pontuação</center>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr ng-repeat="x in listaUsuarios">
+                                <td>
+                                    <center><img src="img/medalha_ouro.png"></center>
+                                </td>
+                                <td>
+                                    <center>{{x.nome}}</center>
+                                </td>
+                                <td>
+                                    <center>{{x.pontuacao}}</center>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>

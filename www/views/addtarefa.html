@@ -1,0 +1,81 @@
+<div class="container">
+
+    <simple-navbar></simple-navbar>
+
+    <!-- Container -->
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="margin-top: 25px;">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><center>Menu</center></h3>
+                </div>
+                <div class="panel-body" ng-controller="addTarefaCtrl">
+                    <!-- interior ao menu -->
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <!-- caractere em branco após o span tarefa -->
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1"><b>Tarefa:   ㅤㅤ </b></span>
+                                        <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+                                    </div>
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <!-- Campo de texto grande 10 linhas x 40 colunas -->
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1"><b>Descrição:</b></span>
+                                        <textarea name="comentário" class="form-control" placeholder="" rows="10" cols="40"></textarea>
+                                    </div>
+                                    <tr>
+                                        <td>
+                                            <!-- pontos e prazo na mesma div -->
+                                            <input type="checkbox" ng-model="tarefaFixa" aria-label=""><span class="" id="basic-addon1"><b>  Tarefa fixa</b></span><br></br>
+                                            <div class="input-group">
+                                                <span class="input-group-addon" id="basic-addon1"><b>Bônus:   ㅤ </b></span>
+                                                <input type="text" class="form-control" placeholder="00" aria-describedby="basic-addon1">
+
+                                                <span class="input-group-addon" id="basic-addon1"><b>Prazo:   ㅤㅤ </b></span>
+                                                <input type="date" class="form-control" placeholder="00/00/00" aria-describedby="basic-addon1">
+
+                                            </div>
+
+                                            <div class="list-group">
+                                                </br>
+                                                <div class="item">
+
+                                                </div>
+
+                                                <div class="item">
+                                                    <label class="item item-select " id="cadastro-select13">  <span class="input-label">Classe</span>
+                                              <select name="classe" class="form-control"  ng-model="cl.classe" ng-options="classe.nomeClasse for classe in listaClasse"   required >
+                                            </select><br>
+                                          </div>
+                                        </div>
+                                        <div align="center"><button type="button" class="btn btn-default">Cadastrar</button></div>
+                                        </td>
+
+
+
+                                    </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- interior ao menu -->
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <!-- Container -->
+</div>

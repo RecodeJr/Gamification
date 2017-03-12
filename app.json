@@ -1,0 +1,7 @@
+{
+  "name": "Gamification",
+  "description": "Sistema de gerenciamento da Recode Jr",
+  "repository": "https://github.com/RecodeJr/Gamification",
+  "logo": "https://github.com/joshuapassos/Gamification/raw/master/imgs/logo_recode.png",
+  "keywords": ["gamification", "recode", "ej"]
+}
