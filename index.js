@@ -109,6 +109,8 @@ app.post('/cadastro', function(req, res) {
 });
 
 
+
+//Código para rodar a aplicação
 app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
+  console.log("Aplicação rodando na porta: " + app.get('port'))
 })

@@ -105,7 +105,7 @@ RoutUsuario.post('/criarTarefa', function(req,res){
 
 
 RoutUsuario.get('/classes', function(req,res){
-  classe = new dbfun.Classe();
+  var classe = new dbfun.Classe();
   classe.find('all', {
       fields: "idClasse,nomeClasse",
   }, function(err, rows, fields) {
@@ -115,7 +115,15 @@ RoutUsuario.get('/classes', function(req,res){
 });
 
 
-
+RoutUsuario.get('/tarefas', function(req,res){
+  var tarefa = new dbfun.Tarefa();
+  var status = 1
+  var qr = "SELECT t.idTarefa, t.titulo, t.dataCriacao, t.dataLimite FROM tarefa as t where idStatusT = "+ status +" order by (t.idTarefa)"
+  tarefa.query(qr ,function(err, rows, fields) {
+      if (err) throw err;
+      res.json(rows);
+  });
+});
 
 
 module.exports = RoutUsuario;
