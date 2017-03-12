@@ -31,6 +31,11 @@ module.exports = {
     Classe: connection.extend({
         tableName: "classe"
     }),
-    Sexo: connection.extend({tableName: "sexo"}),
+    Tarefa: connection.extend({
+        tableName: "tarefa"
+    }),
+    Sexo: connection.extend({
+        tableName: "sexo"
+    }),
     secret: 'lolololololol' //Colocar chave gerada
 };
