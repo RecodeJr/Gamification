@@ -128,4 +128,5 @@ angular.module('my.controllers', [])
     .controller('tarefasCtrl', ['$rootScope','$routeParams','$scope', function($rootScope,$routeParams,$scope) {
       if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
       $scope.tipoTarefa = $routeParams.tipoTarefa
+      console.log( $routeParams.tipoTarefa)
     }])

@@ -142,8 +142,8 @@ INSERT INTO `gamification`.`classe` (`nomeClasse`, `pontuacaoMinima`, `pontosNiv
 
 /** Insere as status_tarefa **/
 
-INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('1', 'Pendente');
-INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('2', 'Em Desenvolvimento');
-INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('3', 'Finalizada');
-INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('4', 'Cancelada');
-INSERT INTO `gamification`.`status_tarefa` ('idStatusT', 'nomeStatus') VALUES ('5', 'Expirada');
+INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Pendente');
+INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Em Desenvolvimento');
+INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Finalizada');
+INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Cancelada');
+INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Expirada');
