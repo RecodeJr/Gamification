@@ -9,7 +9,10 @@
 ### Pré-Requisitos
 
 - [Node.js 6.10.0 LTS](https://nodejs.org/en/download/package-manager/)
+
+
 - [MySQL](https://dev.mysql.com/downloads/workbench/)
+  - ``` # apt-get install mysql-server ```
 
 Na pasta do WebServer você roda os seguintes comandos para rodar:
 
