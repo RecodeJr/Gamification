@@ -21,8 +21,6 @@ angular.module('my.controllers', [])
     // Controller responsavel pela página Home
     .controller('homeCtrl', ['$rootScope', function($rootScope) {
         if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
-
-
         $rootScope.teste = ":)";
         $rootScope.nome = "Recode Jr.";
     }])
@@ -42,29 +40,24 @@ angular.module('my.controllers', [])
             API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
                 if (res.status) { //Verificando se a tarefa foi cadastrada
                     console.log("Tarefa cadastrada");
-
-                    alerta = true;
-
-                    location.reload() //Recarregando a página
+                    $scope.alerta = false; //Enviando a view que não houve erro e que a tarefa foi adicionada
+                    setTimeout(function() {
+                        location.reload()//Recarregando a página dps de 5 segundos
+                    }, 5000);
                 } else {
                     console.log("Erro ao cadastrar tarefa");
-
-                    location.reload()
-
-                    $scope.alerta = 0;
-                    //Redirecionando para a página por conta de algum erro.
+                    $scope.alerta = true; //Enviando a view que houve algum erro
+                    setTimeout(function() {
+                        location.reload()//Recarregando a página dps de 5 segundos
+                    }, 5000);
                 }
             }, function(err) {
                 console.log(err);
-                $scope.alerta = true;
-                console.log($scope.alerta);
+                $scope.alerta = true; //Enviando a view que houve algum erro
                 setTimeout(function() {
-                    location.reload()
+                    location.reload()//Recarregando a página dps de 5 segundos
                 }, 5000);
-
                 //location.reload()
-
-                //Redirecionando para a página por conta de algum erro.
             })
         }
         console.log($scope)
