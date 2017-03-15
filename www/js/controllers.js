@@ -28,16 +28,46 @@ angular.module('my.controllers', [])
     }])
 
     // Controller responsavel pela página de AddTarefa
-    .controller('addTarefaCtrl', ['$rootScope','$scope','API', function($rootScope,$scope,API) {
-      if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
-      API.getClasse(function(res) {
-          if (res != undefined)
-              //Manda para view as classes disponiveis.
-              $scope.listaClasse = res
-      }, function(err) {
-          console.log(err)
-      })
-      console.log($scope)
+    .controller('addTarefaCtrl', ['$rootScope', '$scope', 'API', function($rootScope, $scope, API) {
+        if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
+        API.getClasse(function(res) {
+            if (res != undefined)
+                //Manda para view as classes disponiveis.
+                $scope.listaClasse = res
+        }, function(err) {
+            console.log(err)
+        })
+        $scope.addTarefa = function() {
+            var tarefa = $scope.tarefa; //Pegando os dados digitados na view
+            API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
+                if (res.status) { //Verificando se a tarefa foi cadastrada
+                    console.log("Tarefa cadastrada");
+
+                    alerta = true;
+
+                    location.reload() //Recarregando a página
+                } else {
+                    console.log("Erro ao cadastrar tarefa");
+
+                    location.reload()
+
+                    $scope.alerta = 0;
+                    //Redirecionando para a página por conta de algum erro.
+                }
+            }, function(err) {
+                console.log(err);
+                $scope.alerta = true;
+                console.log($scope.alerta);
+                setTimeout(function() {
+                    location.reload()
+                }, 5000);
+
+                //location.reload()
+
+                //Redirecionando para a página por conta de algum erro.
+            })
+        }
+        console.log($scope)
     }])
 
     // Controller responsavel pela página de Cadastro
