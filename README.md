@@ -4,6 +4,9 @@
 -----------------------------
 
 
+![](https://raw.githubusercontent.com/Voronenko/gitflow-release/master/images/git-workflow-release-cycle-4maintenance.png)
+
+
 ## Rodando o webServer
 
 ### Pré-Requisitos
