@@ -28,6 +28,10 @@ angular.module('my.controllers', [])
     // Controller responsavel pela página de AddTarefa
     .controller('addTarefaCtrl', ['$rootScope', '$scope', 'API', function($rootScope, $scope, API) {
         if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
+        var date = new Date();
+        var mm = date.getMonth() < 9 ? "0"+(date.getMonth() + 1) : (date.getMonth() + 1)
+        $scope.datemin = date.getFullYear() + "-" + mm + "-" +  date.getDate()// getMonth() is zero-based
+
         API.getClasse(function(res) {
             if (res != undefined)
                 //Manda para view as classes disponiveis.
@@ -37,7 +41,12 @@ angular.module('my.controllers', [])
         })
         $scope.addTarefa = function() {
             var tarefa = $scope.tarefa;
-            tarefa.classe = $scope.cl.classe; //Pegando os dados digitados na view
+            tarefa.idClasse = $scope.cl.classe.idClasse; //Pegando os dados digitados na view
+            if(!tarefa.tarefaFixa){
+              tarefa.dataPrazo = new Date($scope.dataPrazo).toLocaleDateString();
+            }else{
+              tarefa.dataPrazo = new Date().toLocaleDateString();
+            }
             API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
                 if (res.status) { //Verificando se a tarefa foi cadastrada
                     console.log("Tarefa cadastrada");
@@ -61,7 +70,6 @@ angular.module('my.controllers', [])
                 //location.reload()
             })
         }
-        console.log($scope)
     }])
 
     // Controller responsavel pela página de Cadastro
