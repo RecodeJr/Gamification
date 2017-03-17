@@ -16,7 +16,7 @@ angular.module('my.services', [])
               $http.post(baseUrl + '/usuario/auth', data).success(success).error(error)
             },
             addTarefa: function(data,success,error){
-              $http.post(baseUrl + '/addtarefa', data).success(success).error(error)
+              $http.post(baseUrl + '/usuario/criarTarefa', data).success(success).error(error)
             },
             logout: function(success) {
                 //delete $localStorage.token;

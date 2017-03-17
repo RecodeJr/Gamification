@@ -99,7 +99,10 @@ RoutUsuario.get('/ranking', function(req,res){
 
 
 RoutUsuario.post('/criarTarefa', function(req,res){
-
+  console.log(req.body);
+  res.json({
+    status: true
+  })
 });
 
 
