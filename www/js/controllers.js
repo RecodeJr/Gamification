@@ -36,7 +36,8 @@ angular.module('my.controllers', [])
             console.log(err)
         })
         $scope.addTarefa = function() {
-            var tarefa = $scope.tarefa; //Pegando os dados digitados na view
+            var tarefa = $scope.tarefa;
+            tarefa.classe = $scope.cl.classe; //Pegando os dados digitados na view
             API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
                 if (res.status) { //Verificando se a tarefa foi cadastrada
                     console.log("Tarefa cadastrada");
