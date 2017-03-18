@@ -43,9 +43,9 @@ angular.module('my.controllers', [])
             var tarefa = $scope.tarefa;
             tarefa.idClasse = $scope.cl.classe.idClasse; //Pegando os dados digitados na view
             if(!tarefa.tarefaFixa){
-              tarefa.dataPrazo = new Date($scope.dataPrazo).toLocaleDateString();
+              tarefa.datalimite = new Date($scope.dataPrazo).toLocaleDateString();
             }else{
-              tarefa.dataPrazo = new Date().toLocaleDateString();
+              tarefa.datalimite = new Date().toLocaleDateString();
             }
             API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
                 if (res.status) { //Verificando se a tarefa foi cadastrada

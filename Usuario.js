@@ -99,10 +99,29 @@ RoutUsuario.get('/ranking', function(req,res){
 
 
 RoutUsuario.post('/criarTarefa', function(req,res){
-  console.log(req.body);
-  res.json({
-    status: true
-  })
+  var ntarefa = req.body;
+  var data = new Date();
+
+  var dataCriacao = ("0" + data.getDate()).substr(-2) + "/" +
+      ("0" + (data.getMonth() + 1)).substr(-2) + "/" + data.getFullYear();
+  ntarefa.idUserCriador = req.token.id;
+  ntarefa.dataCriacao = dataCriacao;
+  if(ntarefa != undefined){
+      var tarefa = new dbfun.Tarefa(ntarefa);
+      tarefa.save(function(err) {
+              if(err){
+                console.log(err);
+                res.json({
+                  status: false
+                });
+              }else{
+                console.log('Nova tarefa cadastrada');
+                res.json({
+                    status: true
+                });
+              }
+      });
+  }
 });
 
 

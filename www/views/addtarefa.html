@@ -25,7 +25,7 @@
                                     <!-- caractere em branco após o span tarefa -->
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1"><b>Tarefa:   ㅤㅤ </b></span>
-                                        <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" ng-model="tarefa.nome">
+                                        <input type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" ng-model="tarefa.titulo">
                                     </div>
                                 </th>
 
@@ -65,7 +65,7 @@
                                             </select><br>
                                           </div>
                                         </div>
-                                        <div align="center"><button type="button" ng-click="addTarefa()" class="btn btn-default" ng-disabled="tarefa.nome==null || tarefa.descricao==null || cl.classe==null">Cadastrar</button></div>
+                                        <div align="center"><button type="button" ng-click="addTarefa()" class="btn btn-default" ng-disabled="tarefa.titulo==null || tarefa.descricao==null || cl.classe==null">Cadastrar</button></div>
                                         <!-- Botão é desabilitado caso os campos NOME, DESCRIÇÃO ou CLASSES estiverem vazios -->
                                         </td>
 
