@@ -71,7 +71,7 @@ create table tarefa(
     titulo VARCHAR(100) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
     idClasse int NOT NULL,
-    idStatusT int NOT NULL,
+    idStatusT int NOT NULL DEFAULT 0,
     idUserCriador int NOT NULL,
     tarefaFixa bool NOT NULL DEFAULT 0,
     pontuacaoBonus float DEFAULT 0,
