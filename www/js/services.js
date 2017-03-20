@@ -18,6 +18,9 @@ angular.module('my.services', [])
             addTarefa: function(data,success,error){
               $http.post(baseUrl + '/usuario/criarTarefa', data).success(success).error(error)
             },
+            tarefa: function(data, success, error) {
+              $http.get(baseUrl + '/usuario/tarefa', data).success(success).error(error);
+            },
             logout: function(success) {
                 //delete $localStorage.token;
                 success();
