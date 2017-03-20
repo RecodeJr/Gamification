@@ -64,6 +64,49 @@ angular.module('my.controllers', [])
         console.log($scope)
     }])
 
+    .controller('editarTarefa', ['$rootScope', '$scope', 'API', function($rootScope, $scope, API) {
+        if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
+        API.getClasse(function(res) {
+            if (res != undefined)
+                //Manda para view as classes disponiveis.
+                $scope.listaClasse = res
+        }, function(err) {
+            console.log(err)
+        })
+
+        $scope.tarefa.nome=window.localStorage.getItem('tarefaTitulo')
+        console.log($scope.tarefa)
+
+        $scope.addTarefa = function() {
+            var tarefa = $scope.tarefa;
+            tarefa.classe = $scope.cl.classe; //Pegando os dados digitados na view
+            API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
+                if (res.status) { //Verificando se a tarefa foi cadastrada
+                    console.log("Tarefa cadastrada");
+                    $scope.alerta = false; //Enviando a view que não houve erro e que a tarefa foi adicionada
+                    setTimeout(function() {
+                        location.reload() //Recarregando a página dps de 5 segundos
+                    }, 5000);
+                } else {
+                    console.log("Erro ao cadastrar tarefa");
+                    $scope.alerta = true; //Enviando a view que houve algum erro
+                    setTimeout(function() {
+                        location.reload() //Recarregando a página dps de 5 segundos
+                    }, 5000);
+                }
+            }, function(err) {
+                console.log(err);
+                $scope.alerta = true; //Enviando a view que houve algum erro
+                setTimeout(function() {
+                    location.reload() //Recarregando a página dps de 5 segundos
+                }, 5000);
+                //location.reload()
+            })
+        }
+        console.log($scope)
+    }])
+
+
     // Controller responsavel pela página de Cadastro
     .controller('cadastroCtrl', ['$rootScope', '$scope', 'API', function($rootScope, $scope, API) {
         API.getSexo(function(res) {
@@ -182,25 +225,65 @@ angular.module('my.controllers', [])
             console.log(err)
         });
         $scope.tipoTarefa = $routeParams.tipoTarefa
-        var statusTarefa=0;
-        if ($scope.tipoTarefa == 'disponiveis') { //Ao clicar em disponiveis entra neste if e assim para os demais
-            console.log('Estamos em disponiveis')
+        if ($scope.tipoTarefa == 'disponiveis') {
+          API.tarefa(1, function(res) {
+              if (res != undefined) {
+                  $scope.listaTarefa = res;
+              } else {
+                  console.log(err);
+              }
+          }, function(err) {
+              console.log(err);
+          })
+
         } else if ($scope.tipoTarefa == 'emCurso') {
-            console.log("Estamos em curso")
+          API.tarefa(2, function(res) {
+            if (res != undefined) {
+                $scope.listaTarefa = res;
+              } else {
+                  console.log(err);
+              }
+          }, function(err) {
+              console.log(err);
+          })
         } else if ($scope.tipoTarefa == 'minhasTarefas') {
-            console.log("Estamos em minhas tarefas")
+          API.tarefaById($scope.idUser, function(res) {
+            if (res != undefined) {
+                $scope.listaTarefa = res;
+              } else {
+                  console.log(err);
+              }
+          }, function(err) {
+              console.log(err);
+          })
         } else if ($scope.tipoTarefa == 'historico') {
-            console.log("Estamos em historico")
+          API.tarefa(null, function(res) {
+            if (res != undefined) {
+                $scope.listaTarefa = res;
+              } else {
+                  console.log("Erro ao atualizar tarefa");
+              }
+          }, function(err) {
+              console.log(err);
+          })
         }
         $scope.editarTarefa = function(idTarefa){
-          console.log("Estamos no editar tarefa", idTarefa)
+          for(x in $scope.listaTarefa){
+            var aux=$scope.listaTarefa[x];
+            if(aux.id==idTarefa){
+              window.localStorage.setItem('tarefaId', $scope.listaTarefa[x].id);
+              window.localStorage.setItem('tarefaDesc', $scope.listaTarefa[x].descricao);
+              window.localStorage.setItem('tarefaTitulo', $scope.listaTarefa[x].titulo);
+              window.location = "#/editarTarefa"
+            }
+          }
+
         }
         $scope.cancelarTarefa = function(idTarefa){ //Função que muda o status da tarefa para cancelada
           for(x in $scope.listaTarefa){ //For para rodar toda a listaTarefa
             var aux=$scope.listaTarefa[x];//A variavel aux está recebendo os objetos de listaTarefa por vez
-            if(aux.id==idTarefa){
-              $scope.listaTarefa[cont].idStatusT=4; //Mudando o status da tarefa para CANCELADA
-              API.tarefa($scope.listaTarefa[cont], function(res) { //Requerindo o GET do services
+            if(aux.id==idTarefa){ //Mudando o status da tarefa para CANCELADA
+              API.cancelarTarefa($scope.listaTarefa[x].id, function(res) { //Enviando o id da tarefa a ser editada
                   if (res.status) { //Verificando se a tarefa foi atualizada
                       console.log("Tarefa atualizada");
                   } else {
@@ -213,7 +296,20 @@ angular.module('my.controllers', [])
           }
         }
         $scope.finalizarTarefa = function(idTarefa){
-
+          for(x in $scope.listaTarefa){ //For para rodar toda a listaTarefa
+            var aux=$scope.listaTarefa[x];//A variavel aux está recebendo os objetos de listaTarefa por vez
+            if(aux.id==idTarefa){ //Mudando o status da tarefa para CANCELADA
+              API.finalizarTarefa($scope.listaTarefa[x].id, function(res) { //Enviando o id da tarefa a ser editada
+                  if (res.status) { //Verificando se a tarefa foi atualizada
+                      console.log("Tarefa atualizada");
+                  } else {
+                      console.log("Erro ao atualizar tarefa");
+                  }
+              }, function(err) {
+                  console.log(err);
+              })
+            }
+          }
         }
         $scope.confirmacaoFinalizar=function(idTarefa){ //Fazendo a confirmação do botão Finalizar
           $scope.variavelConfirmacaoFinalizar=true; //A variavelConfirmacaoFinalizar é uma variavel auxiliar que está mostrando ou não o botão na view

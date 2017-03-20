@@ -21,6 +21,15 @@ angular.module('my.services', [])
             tarefa: function(data, success, error) {
               $http.get(baseUrl + '/usuario/tarefa', data).success(success).error(error);
             },
+            tarefaById: function(data, success, error) {
+              $http.get(baseUrl + '/usuario/tarefaById', data).success(success).error(error);
+            },
+            cancelarTarefa: function(data, success, error) {
+              $http.post(baseUrl + '/usuario/cancelarTarefa', data).success(success).error(error);
+            },
+            finalizarTarefa: function(data, success, error) {
+              $http.post(baseUrl + '/usuario/finalizarTarefa', data).success(success).error(error);
+            },
             logout: function(success) {
                 //delete $localStorage.token;
                 success();

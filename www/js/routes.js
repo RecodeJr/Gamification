@@ -31,6 +31,10 @@ angular.module('my.routes', [])
         templateUrl : "/views/tarefas.html",
         controller: "tarefasCtrl"
 
+    }).when("/editarTarefa", {
+        templateUrl : "/views/addtarefa.html",
+        controller: "editarTarefa"
+
     })
     .when('/404', {
          templateUrl: '/views/erro.html',
