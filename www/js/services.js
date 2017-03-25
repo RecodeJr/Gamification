@@ -30,6 +30,9 @@ angular.module('my.services', [])
             finalizarTarefa: function(data, success, error) {
               $http.post(baseUrl + '/usuario/finalizarTarefa', data).success(success).error(error);
             },
+            editarTarefa: function(data, success, error) {
+              $http.post(baseUrl + '/usuario/editarTarefa', data).success(success).error(error);
+            },
             logout: function(success) {
                 //delete $localStorage.token;
                 success();

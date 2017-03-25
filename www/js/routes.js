@@ -32,7 +32,7 @@ angular.module('my.routes', [])
         controller: "tarefasCtrl"
 
     }).when("/editarTarefa", {
-        templateUrl : "/views/addtarefa.html",
+        templateUrl : "/views/editarTarefa.html",
         controller: "editarTarefa"
 
     })

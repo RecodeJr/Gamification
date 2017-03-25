@@ -36,7 +36,7 @@ angular.module('my.controllers', [])
         }, function(err) {
             console.log(err)
         })
-        $scope.botaoControle=true;
+        $scope.botaoControle = true;
         $scope.addTarefa = function() {
             var tarefa = $scope.tarefa;
             tarefa.classe = $scope.cl.classe; //Pegando os dados digitados na view
@@ -75,20 +75,24 @@ angular.module('my.controllers', [])
         }, function(err) {
             console.log(err)
         })
-        $scope.botaoControle=false;
-        $scope.tarefa = $rootScope.tarefaEditar
-        $scope.addTarefa = function() {
+        // Recupera o json do localStorage
+        var jsonTarefa = window.localStorage.getItem('tarefa');
+
+        // Converte este json para objeto
+        $scope.tarefa = JSON.parse(jsonTarefa);
+        $scope.editarTarefa = function() {
             var tarefa = $scope.tarefa;
-            tarefa.classe = $scope.cl.classe; //Pegando os dados digitados na view
-            API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
+            tarefa.classe = $scope.cl.classe;
+            //Pegando os dados digitados na view
+            API.editarTarefa(tarefa, function(res) { //Requerindo o POST do services
                 if (res.status) { //Verificando se a tarefa foi cadastrada
-                    console.log("Tarefa cadastrada");
+                    console.log("Tarefa editada");
                     $scope.alerta = false; //Enviando a view que não houve erro e que a tarefa foi adicionada
                     setTimeout(function() {
                         location.reload() //Recarregando a página dps de 5 segundos
                     }, 5000);
                 } else {
-                    console.log("Erro ao cadastrar tarefa");
+                    console.log("Erro ao editar tarefa");
                     $scope.alerta = true; //Enviando a view que houve algum erro
                     setTimeout(function() {
                         location.reload() //Recarregando a página dps de 5 segundos
@@ -212,7 +216,7 @@ angular.module('my.controllers', [])
                 idStatusT: 1,
                 tarefaFixa: true,
                 descricao: "lalalalalalalalalalahahahahahah",
-                classe: "Newbie"
+
             },
             {
                 titulo: "Tarefa 3",
@@ -277,7 +281,12 @@ angular.module('my.controllers', [])
             for (x in $scope.listaTarefa) {
                 var aux = $scope.listaTarefa[x];
                 if (aux.id == idTarefa) {
-                    $rootScope.tarefaEditar=aux;
+                    // Cria um json a partir do objeto "aux"
+                    var jsonAux = JSON.stringify(aux);
+
+                    // "Seta" este json no localStorage
+                    window.localStorage.setItem('tarefa', jsonAux);
+
                     window.location = "#/editarTarefa"
                 }
             }

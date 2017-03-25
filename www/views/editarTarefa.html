@@ -15,8 +15,8 @@
                     <!-- interior ao menu -->
 
                     <div ng-model="alerta"></div>
-                    <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa adicionada com sucesso.</div>
-                    <div class="alert alert-danger" ng-if="alerta == true" style="margin: 8px;" role="alert"><b>Erro</b> no cadastro da tarefa.</div>
+                    <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa editada com sucesso.</div>
+                    <div class="alert alert-danger" ng-if="alerta == true" style="margin: 8px;" role="alert"><b>Erro</b> na edição da tarefa.</div>
 
                     <table class="table table-bordered">
                         <thead>
@@ -65,7 +65,7 @@
                                             </select><br>
                                           </div>
                                         </div>
-                                        <center><button type="button" ng-click="addTarefa()" class="btn btn-default" ng-disabled="tarefa.titulo==null || tarefa.descricao==null || cl.classe==null">Cadastrar</button></center>
+                                        <center><button type="button" ng-click="editarTarefa()" class="btn btn-default" ng-disabled="tarefa.titulo==null || tarefa.descricao==null || cl.classe==null ">Editar</button></center>
                                         <!-- Botão é desabilitado caso os campos NOME, DESCRIÇÃO ou CLASSES estiverem vazios -->
                                         </td>
 
