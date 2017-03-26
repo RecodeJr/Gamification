@@ -199,35 +199,6 @@ angular.module('my.controllers', [])
     .controller('tarefasCtrl', ['$rootScope', '$routeParams', '$scope', 'API', '$location', function($rootScope, $routeParams, $scope, API, $location) {
         if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
         $scope.idUser = window.localStorage.getItem('idUser')
-        $scope.listaTarefa = [{
-                titulo: "Tarefa 1",
-                id: 1,
-                statusTarefa: "Finalizada",
-                criador: "João",
-                idCriador: 0,
-                tarefaFixa: true
-            },
-            {
-                titulo: "Tarefa 2",
-                id: 2,
-                statusTarefa: "Dispinivel",
-                criador: "Júnior",
-                idCriador: 1,
-                idStatusT: 1,
-                tarefaFixa: true,
-                descricao: "lalalalalalalalalalahahahahahah",
-
-            },
-            {
-                titulo: "Tarefa 3",
-                id: 3,
-                statusTarefa: "Disponivel",
-                criador: "Mateus",
-                idCriador: 2,
-                idStatusT: 0,
-                tarefaFixa: true
-            }
-        ]
         API.getClasse(function(res) { //Solicita as classes
             if (res != undefined)
                 $scope.listaClasse = res //Coloca as classes na variavel listaClasse
@@ -236,18 +207,18 @@ angular.module('my.controllers', [])
         });
         $scope.tipoTarefa = $routeParams.tipoTarefa
         if ($scope.tipoTarefa == 'disponiveis') {
-            API.tarefa(1, function(res) {
+            API.tarefa(1, function(res) { //Envia 1 para o banco, informando que são as tarefas disponiveis
                 if (res != undefined) {
-                    $scope.listaTarefa = res;
+                    $scope.listaTarefa = res; //pega a resposta do banco
                 } else {
-                    console.log(err);
+                    console.log(err); //Algum erro
                 }
             }, function(err) {
-                console.log(err);
+                console.log(err); //erro
             })
 
         } else if ($scope.tipoTarefa == 'emCurso') {
-            API.tarefa(2, function(res) {
+            API.tarefa(2, function(res) { // Envia 2 para o banco, informando que são as tarefas em Curso
                 if (res != undefined) {
                     $scope.listaTarefa = res;
                 } else {
@@ -257,7 +228,7 @@ angular.module('my.controllers', [])
                 console.log(err);
             })
         } else if ($scope.tipoTarefa == 'minhasTarefas') {
-            API.tarefaById($scope.idUser, function(res) {
+            API.tarefaById($scope.idUser, function(res) { // Pegando tarefas a partir do ID do user logado.
                 if (res != undefined) {
                     $scope.listaTarefa = res;
                 } else {
@@ -267,17 +238,17 @@ angular.module('my.controllers', [])
                 console.log(err);
             })
         } else if ($scope.tipoTarefa == 'historico') {
-            API.tarefa(null, function(res) {
+            API.tarefa(null, function(res) { //Envia null para o banco, mostrando que quer todas as tarefas existentes
                 if (res != undefined) {
                     $scope.listaTarefa = res;
                 } else {
-                    console.log("Erro ao atualizar tarefa");
+                    console.log(err);
                 }
             }, function(err) {
                 console.log(err);
             })
         }
-        $scope.editarTarefa = function(idTarefa) {
+        $scope.editarTarefa = function(idTarefa) { //Parametro de entrada é o id da tarefa selecionada
             for (x in $scope.listaTarefa) {
                 var aux = $scope.listaTarefa[x];
                 if (aux.id == idTarefa) {
