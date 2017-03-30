@@ -15,8 +15,8 @@
                     <!-- interior ao menu -->
 
                     <div ng-model="alerta"></div>
-                    <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa adicionada com sucesso.</div>
-                    <div class="alert alert-danger" ng-if="alerta == true" style="margin: 8px;" role="alert"><b>Erro</b> no cadastro da tarefa.</div>
+                    <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa editada com sucesso.</div>
+                    <div class="alert alert-danger" ng-if="alerta == true" style="margin: 8px;" role="alert"><b>Erro</b> na edição da tarefa.</div>
 
                     <table class="table table-bordered">
                         <thead>
@@ -25,10 +25,7 @@
                                     <!-- caractere em branco após o span tarefa -->
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1"><b>Tarefa:   ㅤㅤ </b></span>
-
                                         <input type="text" class="form-control" value="{{tarefa.titulo}}" aria-describedby="basic-addon1" ng-model="tarefa.titulo">
-
-
                                     </div>
                                 </th>
 
@@ -46,17 +43,13 @@
                                     <tr>
                                         <td>
                                             <!-- pontos e prazo na mesma div -->
-
-                                            <input type="checkbox" ng-model="tarefa.tarefaFixa" ng-init="tarefa.tarefaFixa=false" aria-label=""><span class="" id="basic-addon1"><b>  Tarefa fixa</b></span><br></br>
-
+                                            <input type="checkbox" ng-model="tarefa.tarefaFixa" aria-label=""><span class="" id="basic-addon1"><b>  Tarefa fixa</b></span><br></br>
                                             <div class="input-group">
                                                 <!-- <span class="input-group-addon" id="basic-addon1"><b>Bônus:   ㅤ </b></span>
                                                 <input type="text" class="form-control" placeholder="00" aria-describedby="basic-addon1"> -->
 
                                                 <span class="input-group-addon" id="basic-addon1"><b>Prazo:   ㅤㅤ </b></span>
-
-                                                <input type="date" ng-disabled="tarefa.tarefaFixa" class="form-control" placeholder="00/00/00" min="{{datemin}}" aria-describedby="basic-addon1" ng-model="dataPrazo">
-
+                                                <input type="date" ng-disabled="tarefa.tarefaFixa" class="form-control" placeholder="00/00/00" aria-describedby="basic-addon1" ng-model="tarefa.dataPrazo">
 
                                             </div>
 
@@ -72,7 +65,7 @@
                                             </select><br>
                                           </div>
                                         </div>
-                                        <div align="center"><button type="button" ng-click="addTarefa()" class="btn btn-default" ng-disabled="tarefa.titulo==null || tarefa.descricao==null || cl.classe==null">Cadastrar</button></div>
+                                        <center><button type="button" ng-click="editarTarefa()" class="btn btn-default" ng-disabled="tarefa.titulo==null || tarefa.descricao==null || cl.classe==null ">Editar</button></center>
                                         <!-- Botão é desabilitado caso os campos NOME, DESCRIÇÃO ou CLASSES estiverem vazios -->
                                         </td>
 

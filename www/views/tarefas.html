@@ -7,67 +7,75 @@
     <div class="row">
 
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-              <ul class="nav nav-tabs">
-              <li role="presentation" ng-class="tipoTarefa=='disponiveis'?'active':''"><a href="#tarefas/disponiveis">Disponíveis</a></li>
-              <li role="presentation" ng-class="tipoTarefa=='emCurso'?'active':''"><a href="#tarefas/emCurso">Em curso</a></li>
-              <li role="presentation" ng-class="tipoTarefa=='minhasTarefas'?'active':''"><a href="#tarefas/minhasTarefas">Minhas Tarefas</a></li>
-              <li role="presentation" ng-class="tipoTarefa=='historico'?'active':''"><a href="#tarefas/historico">Histórico</a></li>
-              </ul>
-            </div>
-            <div class="panel-body">
-                <!-- interior ao menu -->
-                <div class="btn-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Níveis<span class="caret"></span></button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Trivial</a></li>
-                        <li><a href="#">Fácil</a></li>
-                        <li><a href="#">Médio</a></li>
-                        <li><a href="#">Difícil</a></li>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" ng-class="tipoTarefa=='disponiveis'?'active':''"><a href="#tarefas/disponiveis">Disponíveis</a></li>
+                        <li role="presentation" ng-class="tipoTarefa=='emCurso'?'active':''"><a href="#tarefas/emCurso">Em curso</a></li>
+                        <li role="presentation" ng-class="tipoTarefa=='minhasTarefas'?'active':''"><a href="#tarefas/minhasTarefas">Minhas Tarefas</a></li>
+                        <li role="presentation" ng-class="tipoTarefa=='historico'?'active':''"><a href="#tarefas/historico">Histórico</a></li>
                     </ul>
-                  </div>
+                </div>
+                <div class="panel-body">
+                    <!-- interior ao menu -->
+                    <!-- <div id="Filtros">
 
+                    <label><input type="checkbox" ng-model="filtroMarketing" value=""> Marketing</label> | <label><input type="checkbox" ng-model="filtroMarketing" value=""> Projetos</label>
+                    <select name="classe" class="form-control"  ng-model="cl.classe" ng-options="classe.nomeClasse for classe in listaClasse"   required ></select>
+                  </div> -->
+                    <table align="center" class="table">
+                        <tr>
+                            <th>Tarefa</th>
+                            <th>Status</th>
+                            <th>Criador</th>
+                            <th>Criada</th>
+                            <th>Entrega</th>
+                            <th>Opções</th>
+                        </tr>
 
-                <table align="center" class="table">
-                    <tr>
-                        <th>Tarefa</th>
-                        <th>Status</th>
-                        <th>Criador</th>
-                        <th>Criada</th>
-                        <th>Entrega</th>
-                        <th>Opções</th>
-                    </tr>
-
-                    <tr>
-                        <td>lalalalla</td>
-                        <td>Disponivel</td>
-                        <td>Ted</td>
-                        <td>20/10</td>
-                        <td>21/10</td>
-                        <td>
-                                <button style="margin-right: 5%"  type="button" class="btn btn-default btn-xs">
+                        <tr ng-repeat="tar in listaTarefa">
+                          <!-- Roda toda a listaTarefa mostrando seus atributos e colocando nas funções abaixo os parametros -->
+                            <td>{{tar.titulo}}</td>
+                            <td>{{tar.statusTarefa}}</td>
+                            <td>{{tar.criador}}</td>
+                            <td>{{tar.dataCriacao}}</td>
+                            <td>{{tar.dataFinal}}</td>
+                            <td>
+                                <button  type="button" ng-click="editarTarefa(tar.id)" ng-disabled="tar.idCriador!=idUser || tar.idStatusT!=1" class="btn btn-default btn-xs">
+                                  <!-- Ao clicar no botão a função editarTarefa é chamada passando como parametro o id da tarefa -->
                                   <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Editar
                                 </button>
-                                <button style="margin-right: 5%"  type="button" class="btn btn-default btn-xs">
+                                <button  type="button" ng-click="confirmacaoCancelar(tar.id)" ng-disabled="tar.idCriador!=idUser" class="btn btn-default btn-xs">
+                                  <!-- Ao clicar no botão a função cancelarTarefa é chamada passando como parametro o id da tarefa -->
                                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
                                 </button>
-                                <button style="margin-right: 5%"  type="button" class="btn btn-default btn-xs">
+                                <button  type="button" ng-click="confirmacaoFinalizar(tar.id)" ng-disabled="tar.idPegou!=idUser" class="btn btn-default btn-xs">
+                                  <!-- Ao clicar no botão a função finalizarTarefa é chamada passando como parametro o id da tarefa -->
                                   <span class="glyphicon" aria-hidden="true">&#xe067;</span> Finalizar
                                 </button>
+                            </td>
+                            <td>
+                              <span ng-if="variavelConfirmacaoFinalizar && idConfirmacaoFinalizar==tar.id">Confirma a finalização?</span> <button  type="button" ng-click="finalizarTarefa(tar.id)" ng-if="variavelConfirmacaoFinalizar && idConfirmacaoFinalizar==tar.id" class="btn btn-default btn-xs">
+                                <!-- Ao clicar no botão a função finalizarTarefa é chamada passando como parametro o id da tarefa -->
+                                <span class="glyphicon" aria-hidden="true">&#xe067;</span> Sim
+                              </button>
+                              <span ng-if="variavelConfirmacaoCancelar && idConfirmacaoCancelar==tar.id">Confirma o cancelamento?</span> <button  type="button" ng-click="cancelarTarefa(tar.id)" ng-if="variavelConfirmacaoCancelar && idConfirmacaoCancelar==tar.id" class="btn btn-default btn-xs">
+                                <!-- Ao clicar no botão a função finalizarTarefa é chamada passando como parametro o id da tarefa -->
+                                <span class="glyphicon" aria-hidden="true">&#xe067;</span> Sim
+                              </button>
+                            </td>
+                        </tr>
 
-                        </td>
-                    </tr>
+                    </table>
 
-                </table>
-
-                <div align="right">
-                    <button type="button" class="btn btn-default">Adicionar Tarefa</button>
+                    <div align="right">
+                        <button type="button" class="btn btn-default">Adicionar Tarefa</button>
+                    </div>
+                    <!-- interior ao menu -->
                 </div>
-                <!-- interior ao menu -->
             </div>
         </div>
-
     </div>
     <!-- Container -->
 </div>
