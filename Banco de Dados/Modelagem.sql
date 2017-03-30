@@ -34,7 +34,7 @@ create table usuario(
     sexo int NOT NULL,
     ativado bool NOT NULL DEFAULT 0,
     dataIngresso varchar(10) NOT NULL,
-    matricula varchar(10) NOT NULL,
+    matricula varchar(9) NOT NULL,
     userIDHabi varchar(36),
     tokenHabi varchar(36),
     userGit varchar(40) NOT NULL,
