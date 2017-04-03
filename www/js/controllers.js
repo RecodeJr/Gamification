@@ -29,8 +29,8 @@ angular.module('my.controllers', [])
     .controller('addTarefaCtrl', ['$rootScope', '$scope', 'API', function($rootScope, $scope, API) {
         if (window.localStorage.getItem('ngStorage-token') == null) window.location = "#/login";
         var date = new Date();
-        var mm = date.getMonth() < 9 ? "0"+(date.getMonth() + 1) : (date.getMonth() + 1)
-        $scope.datemin = date.getFullYear() + "-" + mm + "-" +  date.getDate()// getMonth() is zero-based
+        var mm = date.getMonth() < 9 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1)
+        $scope.datemin = date.getFullYear() + "-" + mm + "-" + date.getDate() // getMonth() is zero-based
         API.getClasse(function(res) {
             if (res != undefined)
                 //Manda para view as classes disponiveis.
@@ -42,10 +42,10 @@ angular.module('my.controllers', [])
         $scope.addTarefa = function() {
             var tarefa = $scope.tarefa;
             tarefa.idClasse = $scope.cl.classe.idClasse; //Pegando os dados digitados na view
-            if(!tarefa.tarefaFixa){
-              tarefa.datalimite = new Date($scope.dataPrazo).toLocaleDateString();
-            }else{
-              tarefa.datalimite = new Date().toLocaleDateString();
+            if (!tarefa.tarefaFixa) {
+                tarefa.datalimite = new Date($scope.dataPrazo).toLocaleDateString();
+            } else {
+                tarefa.datalimite = new Date().toLocaleDateString();
             }
             API.addTarefa(tarefa, function(res) { //Requerindo o POST do services
                 if (res.status) { //Verificando se a tarefa foi cadastrada
@@ -161,50 +161,53 @@ angular.module('my.controllers', [])
         }, function(err) {
             console.log(err)
         });
-      //   $scope.listaTarefa=[{
-      //     id: 1,
-      //     titulo: "lalalalalalahahahaha",
-      //     statusTarefa: "Disponivel",
-      //     criador: "Júnior",
-      //     idCriador: 1,
-      //     idStatusT: 1
-      //   },
-      //   {
-      //     id: 2,
-      //     titulo: "2lalalalalalahahahaha",
-      //     statusTarefa: "2Disponivel",
-      //     criador: "Júnior",
-      //     idCriador: 1,
-      //     idStatusT: 1
-      //   },
-      //   {
-      //     id: 3,
-      //     titulo: "3lalalalalalahahahaha",
-      //     statusTarefa: "3Disponivel",
-      //     criador: "Júnior",
-      //     idCriador: 2,
-      //     idStatusT: 1
-      //   },
-      //   {
-      //     id: 4,
-      //     titulo: "4lalalalalalahahahaha",
-      //     statusTarefa: "4Disponivel",
-      //     criador: "4Júnior",
-      //     idCriador: 1,
-      //     idStatusT: 1
-      //   }
-      //
-      // ];
+        $scope.listaTarefa = [{
+                id: 1,
+                titulo: "lalalalalalahahahaha",
+                statusTarefa: "Disponivel",
+                criador: "Júnior",
+                idCriador: 1,
+                idStatusT: 1,
+                idPegou: 1
+            },
+            {
+                id: 2,
+                titulo: "2lalalalalalahahahaha",
+                statusTarefa: "2Disponivel",
+                criador: "Júnior",
+                idCriador: 1,
+                idStatusT: 1
+            },
+            {
+                id: 3,
+                titulo: "3lalalalalalahahahaha",
+                statusTarefa: "3Disponivel",
+                criador: "Júnior",
+                idCriador: 2,
+                idStatusT: 1,
+                idPegou: 1
+            },
+            {
+                id: 4,
+                titulo: "4lalalalalalahahahaha",
+                statusTarefa: "4Disponivel",
+                criador: "4Júnior",
+                idCriador: 1,
+                idStatusT: 1,
+                idPegou: 1
+            }
+
+        ];
         $scope.tipoTarefa = $routeParams.tipoTarefa;
         let controleTarefas;
         if ($scope.tipoTarefa == 'disponiveis') {
-          controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
-            idStatusT = 1,
-            idUser = null
-          ];
+            controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
+                idStatusT = 1,
+                idUser = null
+            ];
             API.tarefa(controleTarefas, function(res) { //Envia 1 para o banco, informando que são as tarefas disponiveis
                 if (res != undefined) {
-                   $scope.listaTarefa = res; //pega a resposta do banco
+                    $scope.listaTarefa = res; //pega a resposta do banco
                 } else {
                     console.log(err); //Algum erro
                 }
@@ -213,13 +216,13 @@ angular.module('my.controllers', [])
             })
 
         } else if ($scope.tipoTarefa == 'emCurso') {
-          controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
-            idStatusT = 2,
-            idUser = null
-          ];
+            controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
+                idStatusT = 2,
+                idUser = null
+            ];
             API.tarefa(controleTarefas, function(res) { // Envia 2 para o banco, informando que são as tarefas em Curso
                 if (res != undefined) {
-                   $scope.listaTarefa = res;
+                    $scope.listaTarefa = res;
                 } else {
                     console.log(err);
                 }
@@ -227,13 +230,13 @@ angular.module('my.controllers', [])
                 console.log(err);
             })
         } else if ($scope.tipoTarefa == 'minhasTarefas') {
-          controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
-            idStatusT = null,
-            idUser = $scope.idUser
-          ];
+            controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
+                idStatusT = null,
+                idUser = $scope.idUser
+            ];
             API.tarefa(controleTarefas, function(res) { // Pegando tarefas a partir do ID do user logado.
                 if (res != undefined) {
-                 $scope.listaTarefa = res;
+                    $scope.listaTarefa = res;
                 } else {
                     console.log(err);
                 }
@@ -241,13 +244,13 @@ angular.module('my.controllers', [])
                 console.log(err);
             })
         } else if ($scope.tipoTarefa == 'historico') {
-          controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
-            idStatusT = null,
-            idUser = null
-          ];
+            controleTarefas = [ //Colocando no JSON que será enviado que não queremos a tarefa a partir do StatusTarefa e sim a partir do idUser
+                idStatusT = null,
+                idUser = null
+            ];
             API.tarefa(controleTarefas, function(res) { //Envia null para o banco, mostrando que quer todas as tarefas existentes
                 if (res != undefined) {
-                //    $scope.listaTarefa = res;
+                    //    $scope.listaTarefa = res;
                 } else {
                     console.log(err);
                 }
@@ -259,7 +262,7 @@ angular.module('my.controllers', [])
             for (x in $scope.listaTarefa) { //Faz a verificação de qual é a tarefa selecionada na view
                 let aux = $scope.listaTarefa[x];
                 if (aux.id == idTarefa) { //Achada qual é a tarefa é mandada a view a tarefa(que está na variavel aux)
-                    $scope.tarefa=aux;
+                    $scope.tarefa = aux;
                     $scope.enviarEditarTarefa = function() { //Ao clicar no botão "Editar" entra nessa função e envia a tarefa editada para o back
                         var tarefa = $scope.tarefa;
                         tarefa.classe = $scope.cl.classe;
@@ -285,32 +288,40 @@ angular.module('my.controllers', [])
 
         }
         $scope.cancelarTarefa = function(idTarefa) { //Função que muda o status da tarefa para cancelada
+            console.log(idTarefa)
             for (x in $scope.listaTarefa) { //For para rodar toda a listaTarefa
                 var aux = $scope.listaTarefa[x]; //A variavel aux está recebendo os objetos de listaTarefa por vez
                 if (aux.id == idTarefa) { //Mudando o status da tarefa para CANCELADA
                     API.cancelarTarefa($scope.listaTarefa[x].id, function(res) { //Enviando o id da tarefa a ser editada
                         if (res.status) { //Verificando se a tarefa foi atualizada
+                            $scope.alerta = false;
                             console.log("Tarefa atualizada");
                         } else {
+                          $scope.alerta = true;
                             console.log("Erro ao atualizar tarefa");
                         }
                     }, function(err) {
+                      $scope.alerta = true;
                         console.log(err);
                     })
                 }
             }
         }
         $scope.finalizarTarefa = function(idTarefa) {
+            console.log(idTarefa)
             for (x in $scope.listaTarefa) { //For para rodar toda a listaTarefa
                 var aux = $scope.listaTarefa[x]; //A variavel aux está recebendo os objetos de listaTarefa por vez
                 if (aux.id == idTarefa) { //Mudando o status da tarefa para CANCELADA
                     API.finalizarTarefa($scope.listaTarefa[x].id, function(res) { //Enviando o id da tarefa a ser editada
                         if (res.status) { //Verificando se a tarefa foi atualizada
+                          $scope.alerta = false;
                             console.log("Tarefa atualizada");
                         } else {
+                          $scope.alerta = true;
                             console.log("Erro ao atualizar tarefa");
                         }
                     }, function(err) {
+                      $scope.alerta = true;
                         console.log(err);
                     })
                 }
