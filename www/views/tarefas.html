@@ -42,13 +42,14 @@
                         <tr ng-repeat="tar in listaTarefa">
                             <!-- Roda toda a listaTarefa mostrando seus atributos e colocando nas funções abaixo os parametros -->
                             <td>{{tar.titulo}}</td>
-                            <td>{{tar.statusTarefa}}</td>
-                            <td>{{tar.criador}}</td>
+                            <td>{{tar.nomeStatus}}</td>
+                            <td>{{tar.criador.split(' ')[0]+ " " +tar.criador.split(' ')[(tar.criador.split(' ').length-1)]}}</td>
                             <td>{{tar.dataCriacao}}</td>
-                            <td>{{tar.dataFinal}}</td>
+                            <td>{{tar.dataLimite}}</td>
                             <td>
-                                <button type="button" ng-click="editarTarefa(tar.id)" class="btn btn-default btn-xs" data-toggle="modal" ng-disabled="tar.idCriador!=idUser || tar.idStatusT!=1" data-target="#myModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
-                                <button type="button" ng-click="confirmacaoCancelar(tar.id)" ng-disabled="tar.idCriador!=idUser" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoModal">
+                                <button type="button" ng-click="editarTarefa(tar.id)" class="btn btn-default btn-xs" data-toggle="modal" ng-disabled="tar.idUserCriador==idUser && tar.idStatusT==1" data-target="#myModal">
+                                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
+                                <button type="button" ng-click="confirmacaoCancelar(tar.id)" ng-disabled="tar.idUserCriador==idUser && tar.idStatusT==1" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoModal">
                                   <!-- Ao clicar no botão a função cancelarTarefa é chamada passando como parametro o id da tarefa -->
                                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
                                 </button>

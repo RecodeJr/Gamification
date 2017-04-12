@@ -104,14 +104,12 @@ RoutUsuario.get('/ranking', function(req,res){
 
 RoutUsuario.post('/criarTarefa', function(req,res){
   var ntarefa = req.body;
-
   var data = new Date();
   var dataCriacao = ("0" + data.getDate()).substr(-2) + "/" +
       ("0" + (data.getMonth() + 1)).substr(-2) + "/" + data.getFullYear();
   ntarefa.idUserCriador = req.token.id;
   ntarefa.dataCriacao = dataCriacao;
-  ntarefa.idStatusT = 1;
-  listTarefa = [ntarefa.idUserCriador,ntarefa.dataCriacao,ntarefa.idClasse,ntarefa.datalimite,ntarefa.titulo,ntarefa.descricao,ntarefa.tarefaFixa,ntarefa.idStatusT];
+  listTarefa = [ntarefa.idUserCriador,ntarefa.dataCriacao,ntarefa.idClasse,ntarefa.datalimite,ntarefa.titulo,ntarefa.descricao,ntarefa.tarefaFixa];
   var verify = listTarefa.map((a) => a === undefined).reduce((a, b) => a || b);
   console.log(listTarefa);
   if(!verify){
@@ -159,10 +157,11 @@ RoutUsuario.post('/tarefas', function(req,res){
 
   var status = req.body.idStatusT;
   var idUser = req.body.idUser;
+  var qr;
   if(idUser === null){
-      var qr = "SELECT t.idTarefa, t.titulo, t.dataCriacao, t.dataLimite FROM tarefa as t where idStatusT = "+ status +" order by (t.idTarefa)";
+      qr = "select tx.idTarefa, tx.titulo, tx.idUserCriador, tx.dataCriacao, tx.dataLimite, tx.nomeStatus, tx.criador from (SELECT t.idTarefa, t.titulo, idUserCriador, t.dataCriacao, t.dataLimite, st.nomeStatus, u.nome as criador, st.idStatusT FROM tarefa as t, status_tarefa as st, usuario as u where u.idUser = idUserCriador) as tx right join registro as r on r.idTarefa = tx.idTarefa where tx.idStatusT ="+ status + "";
   }else{
-      var qr = "SELECT t.idTarefa, t.titulo, t.dataCriacao, t.dataLimite FROM tarefa as t where idStatusT = "+ status +" order by (t.idTarefa)";
+       qr = "select tx.idTarefa, tx.titulo, tx.idUserCriador, tx.dataCriacao, tx.dataLimite, tx.nomeStatus, tx.criador from (SELECT t.idTarefa, t.titulo, idUserCriador, t.dataCriacao, t.dataLimite, st.nomeStatus, u.nome as criador, st.idStatusT FROM tarefa as t, status_tarefa as st, usuario as u where u.idUser = idUserCriador) as tx right join registro as r on r.idTarefa = tx.idTarefa where tx.idStatusT ="+ status + "";
   }
   tarefa.query(qr ,function(err, rows, fields) {
       if (err) throw err;
