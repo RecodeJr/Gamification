@@ -255,7 +255,7 @@ angular.module('my.controllers', [])
             };
             API.tarefa(controleTarefas, function(res) { //Envia null para o banco, mostrando que quer todas as tarefas existentes
                 if (res !== undefined) {
-                    //    $scope.listaTarefa = res;
+                        $scope.listaTarefa = res;
                 } else {
                     console.log(err);
                 }

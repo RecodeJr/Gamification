@@ -158,11 +158,16 @@ RoutUsuario.post('/tarefas', function(req,res){
   var status = req.body.idStatusT;
   var idUser = req.body.idUser;
   var qr;
-  if(idUser === null){
-      qr = "select tx.idTarefa, tx.titulo, tx.idUserCriador, tx.dataCriacao, tx.dataLimite, tx.nomeStatus, tx.criador from (SELECT t.idTarefa, t.titulo, idUserCriador, t.dataCriacao, t.dataLimite, st.nomeStatus, u.nome as criador, st.idStatusT FROM tarefa as t, status_tarefa as st, usuario as u where u.idUser = idUserCriador) as tx right join registro as r on r.idTarefa = tx.idTarefa where tx.idStatusT ="+ status + "";
+  if((idUser === null)){
+     if(status === null){
+        qr = "SELECT r.idRegistro, r.idTarefa, r.idStatusT,st.nomeStatus,  t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, t.nomeClasse, t.nome as nomeCriador FROM registro as r, status_tarefa as st, (select t.idTarefa , t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, c.nomeClasse, t.idUserCriador,  CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nome from tarefa as t, usuario as u, classe as c where c.idClasse = t.idClasse and t.idUserCriador = u.idUser) as t where st.idStatusT = r.idStatusT and r.idTarefa = t.idTarefa;"
+     }else{
+        qr = "SELECT r.idRegistro, r.idTarefa, r.idStatusT,st.nomeStatus,  t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, t.nomeClasse, t.nome as nomeCriador FROM registro as r, status_tarefa as st, (select t.idTarefa , t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, c.nomeClasse, t.idUserCriador,  CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nome from tarefa as t, usuario as u, classe as c where c.idClasse = t.idClasse and t.idUserCriador = u.idUser) as t where st.idStatusT = r.idStatusT and r.idTarefa = t.idTarefa and r.idStatusT= "+ status + "";
+     }
   }else{
-       qr = "select tx.idTarefa, tx.titulo, tx.idUserCriador, tx.dataCriacao, tx.dataLimite, tx.nomeStatus, tx.criador from (SELECT t.idTarefa, t.titulo, idUserCriador, t.dataCriacao, t.dataLimite, st.nomeStatus, u.nome as criador, st.idStatusT FROM tarefa as t, status_tarefa as st, usuario as u where u.idUser = idUserCriador) as tx right join registro as r on r.idTarefa = tx.idTarefa where tx.idStatusT ="+ status + "";
-  }
+     qr = "SELECT r.idRegistro, r.idTarefa, r.idStatusT,st.nomeStatus, r.idUserResp,CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nomeResponsavel,  t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, t.nomeClasse, t.nome as nomeCriador FROM registro as r, status_tarefa as st, (select t.idTarefa , t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, c.nomeClasse, t.idUserCriador,  CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nome from tarefa as t, usuario as u, classe as c where c.idClasse = t.idClasse and t.idUserCriador = u.idUser) as t, usuario as u where st.idStatusT = r.idStatusT and r.idTarefa = t.idTarefa and u.idUser = r.idUserResp and r.idUserResp="+ idUser +""
+ }
+
   tarefa.query(qr ,function(err, rows, fields) {
       if (err) throw err;
       res.json(rows);
