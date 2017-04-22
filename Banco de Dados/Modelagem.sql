@@ -71,13 +71,11 @@ create table tarefa(
     titulo VARCHAR(100) NOT NULL,
     descricao VARCHAR(255) NOT NULL,
     idClasse int NOT NULL,
-    idStatusT int NOT NULL DEFAULT 0,
     idUserCriador int NOT NULL,
     tarefaFixa bool NOT NULL DEFAULT 0,
     pontuacaoBonus float DEFAULT 0,
     dataCriacao varchar(10) NOT NULL,
     dataLimite varchar(10),
-    constraint idStatusT foreign key (idStatusT) references status_tarefa(idStatusT),
     constraint idClasseT foreign key (idClasse) references classe(idClasse),
     constraint idUserCriador foreign key (idUserCriador) references usuario(idUser),
     constraint idTarefa primary key (idTarefa)
@@ -98,7 +96,7 @@ create table registro(
     idRegistro int auto_increment,
     idTarefa int NOT NULL,
     idStatusT int NOT NULL,
-    idUserResp int NOT NULL,
+    idUserResp int,
     constraint idRegistro primary key (idRegistro),
     constraint idTarefaR foreign key (idTarefa) references tarefa(idTarefa),
     constraint idUserResp foreign key (idUserResp) references usuario(idUser),
@@ -147,3 +145,16 @@ INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Em Desenvolvi
 INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Finalizada');
 INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Cancelada');
 INSERT INTO `gamification`.`status_tarefa` (`nomeStatus`) VALUES ('Expirada');
+
+
+DELIMITER $$
+CREATE TRIGGER addRegistro_questao
+AFTER INSERT ON gamification.tarefa
+FOR EACH ROW BEGIN
+IF new.tarefaFixa = 0 THEN
+INSERT INTO registro
+SET idStatusT = 1,
+idTarefa = new.idTarefa;
+END IF;
+END$$
+DELIMITER ;

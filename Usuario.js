@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 var RoutUsuario = express.Router();
 
 var sha1 = require('sha1');
+var R = require('ramda');
 
 
 RoutUsuario.post('/auth', function(req, res) {
@@ -13,7 +14,7 @@ RoutUsuario.post('/auth', function(req, res) {
     //Com a expressao regular r, podemos garantir que a string extraida será um email válido.
     var email = req.body.email.match(r);
     var senha = sha1(req.body.senha);
-    if (email != null) {
+    if (email !== null) {
         email = email[0];
         usuariof.find('all', {
             fields: ['email', 'idUser', 'nome', 'senha'],
@@ -53,7 +54,7 @@ RoutUsuario.post('/auth', function(req, res) {
                     });
                 }
             }
-        })
+        });
     } else {
         res.json({
             status: false,
@@ -74,7 +75,7 @@ RoutUsuario.use(function(req, res, next) {
                     message: "Falha para autentificar a Token."
                 });
             } else {
-                console.log("token Ok")
+                console.log("token Ok");
                 // Token é verificada, Salva as informações
                 req.token = token_decoded;
                 req.user = token_decoded.user;
@@ -87,16 +88,19 @@ RoutUsuario.use(function(req, res, next) {
       res.json({
           status: false,
           message: "Falha para autentificar a Token."
-      })
+      });
     }
 });
 
-
+//Retorna o Rankig de usuários
 RoutUsuario.get('/ranking', function(req,res){
   var ranking = new dbfun.Ranking();
 
 });
 
+
+
+//Método POST para criar tarefas
 
 RoutUsuario.post('/criarTarefa', function(req,res){
   var ntarefa = req.body;
@@ -105,9 +109,9 @@ RoutUsuario.post('/criarTarefa', function(req,res){
       ("0" + (data.getMonth() + 1)).substr(-2) + "/" + data.getFullYear();
   ntarefa.idUserCriador = req.token.id;
   ntarefa.dataCriacao = dataCriacao;
-  listTarefa = [ntarefa.idUserCriador,ntarefa.dataCriacao,ntarefa.idClasse,ntarefa.datalimite,ntarefa.titulo,ntarefa.descricao,ntarefa.tarefaFixa]
-  var verify = listTarefa.map((a) => a == undefined).reduce((a, b) => a || b)
-  console.log(listTarefa)
+  listTarefa = [ntarefa.idUserCriador,ntarefa.dataCriacao,ntarefa.idClasse,ntarefa.datalimite,ntarefa.titulo,ntarefa.descricao,ntarefa.tarefaFixa];
+  var verify = listTarefa.map((a) => a === undefined).reduce((a, b) => a || b);
+  console.log(listTarefa);
   if(!verify){
       var tarefa = new dbfun.Tarefa(ntarefa);
       tarefa.save(function(err) {
@@ -143,15 +147,50 @@ RoutUsuario.get('/classes', function(req,res){
 });
 
 
-RoutUsuario.get('/tarefas', function(req,res){
+
+
+
+
+RoutUsuario.post('/tarefas', function(req,res){
   var tarefa = new dbfun.Tarefa();
-  var status = 1
-  var qr = "SELECT t.idTarefa, t.titulo, t.dataCriacao, t.dataLimite FROM tarefa as t where idStatusT = "+ status +" order by (t.idTarefa)"
+  console.log(req.body);
+  var status = req.body.idStatusT;
+  var idUser = req.body.idUser;
+  var qr;
+  if((idUser === null)){
+     if(status === null){
+        qr = "SELECT r.idRegistro, r.idTarefa, r.idStatusT,st.nomeStatus,  t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, t.nomeClasse, t.nome as nomeCriador FROM registro as r, status_tarefa as st, (select t.idTarefa , t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, c.nomeClasse, t.idUserCriador,  CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nome from tarefa as t, usuario as u, classe as c where c.idClasse = t.idClasse and t.idUserCriador = u.idUser) as t where st.idStatusT = r.idStatusT and r.idTarefa = t.idTarefa;"
+     }else{
+        qr = "SELECT r.idRegistro, r.idTarefa, r.idStatusT,st.nomeStatus,  t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, t.nomeClasse, t.nome as nomeCriador FROM registro as r, status_tarefa as st, (select t.idTarefa , t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, c.nomeClasse, t.idUserCriador,  CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nome from tarefa as t, usuario as u, classe as c where c.idClasse = t.idClasse and t.idUserCriador = u.idUser) as t where st.idStatusT = r.idStatusT and r.idTarefa = t.idTarefa and r.idStatusT= "+ status + "";
+     }
+  }else{
+     qr = "SELECT r.idRegistro, r.idTarefa, r.idStatusT,st.nomeStatus, r.idUserResp,CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nomeResponsavel,  t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, t.nomeClasse, t.nome as nomeCriador FROM registro as r, status_tarefa as st, (select t.idTarefa , t.titulo, t.dataCriacao, t.dataLimite, t.descricao, t.idClasse, c.nomeClasse, t.idUserCriador,  CONCAT(SUBSTRING_INDEX(u.nome,' ',1), ' ', SUBSTRING_INDEX(u.nome,' ',-1)) as nome from tarefa as t, usuario as u, classe as c where c.idClasse = t.idClasse and t.idUserCriador = u.idUser) as t, usuario as u where st.idStatusT = r.idStatusT and r.idTarefa = t.idTarefa and u.idUser = r.idUserResp and r.idUserResp="+ idUser +""
+ }
+
   tarefa.query(qr ,function(err, rows, fields) {
       if (err) throw err;
       res.json(rows);
   });
 });
 
+
+RoutUsuario.post('/pegarTarefa',function(req,res){
+   console.log(req.body);
+   res.json({status: true});
+});
+
+
+
+RoutUsuario.post('/finalizarTarefa',function(req,res){
+   console.log(req.body);
+   res.json({status: true});
+});
+
+
+
+RoutUsuario.post('/cancelarTarefa',function(req,res){
+   console.log(req.body);
+   res.json({status: true});
+});
 
 module.exports = RoutUsuario;

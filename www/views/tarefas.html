@@ -25,10 +25,10 @@
                     <select name="classe" class="form-control"  ng-model="cl.classe" ng-options="classe.nomeClasse for classe in listaClasse"   required ></select>
                   </div> -->
                     <table align="center" class="table">
-                      <div class="alert alert-success" ng-if="alerta == false" style="margin-bottom: 12px;" role="alert"><b>Parabéns!</b> A tarefa <b>{{tarefa.titulo}}</b> foi editada com sucesso</div>
+                      <!-- <div class="alert alert-success" ng-if="alerta == false" style="margin-bottom: 12px;" role="alert"><b>Parabéns!</b> A tarefa <b>{{tarefa.titulo}}</b> foi editada com sucesso</div>
                       <div class="alert alert-danger" ng-if="alerta == true" style="margin-bottom: 12px;" role="alert"><b>Erro</b> na edição da tarefa <b>{{tarefa.titulo}}</b></div>
 
-                        <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa editada com sucesso.</div>
+                        <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa editada com sucesso.</div> -->
 
                         <tr>
                             <th>Tarefa</th>
@@ -42,20 +42,24 @@
                         <tr ng-repeat="tar in listaTarefa">
                             <!-- Roda toda a listaTarefa mostrando seus atributos e colocando nas funções abaixo os parametros -->
                             <td>{{tar.titulo}}</td>
-                            <td>{{tar.statusTarefa}}</td>
-                            <td>{{tar.criador}}</td>
+                            <td>{{tar.nomeStatus}}</td>
+                            <td>{{tar.nomeCriador}}</td>
                             <td>{{tar.dataCriacao}}</td>
-                            <td>{{tar.dataFinal}}</td>
+                            <td>{{tar.dataLimite}}</td>
                             <td>
-                                <button type="button" ng-click="editarTarefa(tar.id)" class="btn btn-default btn-xs" data-toggle="modal" ng-disabled="tar.idCriador!=idUser || tar.idStatusT!=1" data-target="#myModal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar</button>
-                                <button type="button" ng-click="confirmacaoCancelar(tar.id)" ng-disabled="tar.idCriador!=idUser" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoModal">
+                               <button ng-if="tipoTarefa == 'disponiveis'" type="button" ng-click="editarTarefa(tar.id)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                                  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Leia mais </button>
+
+                                <button ng-if="(tipoTarefa == 'minhasTarefas')" type="button" ng-click="editarTarefa(tar.idTarefa)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                                   <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Editar </button>
+
+                                <button ng-if="(tipoTarefa == 'minhasTarefas')" type="button" ng-click="confirmacaoCancelar(tar.idTarefa)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoModal">
                                   <!-- Ao clicar no botão a função cancelarTarefa é chamada passando como parametro o id da tarefa -->
-                                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
-                                </button>
-                                <button type="button" ng-click="confirmacaoFinalizar(tar.id)" ng-disabled="tar.idPegou!=idUser" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoModal">
+                                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar </button>
+
+                                <button ng-if="(tipoTarefa == 'minhasTarefas')" type="button" ng-click="confirmacaoFinalizar(tar.idTarefa)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#confirmacaoModal">
                                   <!-- Ao clicar no botão a função finalizarTarefa é chamada passando como parametro o id da tarefa -->
-                                  <span class="glyphicon" aria-hidden="true">&#xe067;</span> Finalizar
-                                </button>
+                                  <span class="glyphicon" aria-hidden="true">&#xe067;</span> Finalizar </button>
                             </td>
 
                             <!-- Modal -->
@@ -70,22 +74,29 @@
 
                                     <div class="modal-body">
                                       <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
                                         <div ng-hide="variavelConfirmacaoCancelar">
                                             <center>
                                                 <h4>Confirma a finalização?</h4><br>
                                                 <button type="button" ng-click="finalizarTarefa(idConfirmacaoFinalizar)" class="btn btn-default" data-dismiss="modal">
                                             <span class="glyphicon glyphicon-disk-saved" aria-hidden="true"></span> Sim
-                                          </button></center>
+                                          </button>
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                       </center>
                                         </div>
+
+
                                         <div ng-hide="variavelConfirmacaoFinalizar">
                                             <center>
                                                 <h4>Confirma o cancelamento?</h4><br>
-                                                <button type="button" ng-click="cancelarTarefa(idConfirmacaoCancelar)" class="btn btn-default" data-dismiss="modal">
-                                              <span class="glyphicon glyphicon-disk-saved" aria-hidden="true"></span> Sim
-                                            </button></center>
+                                                   <button type="button" ng-click="cancelarTarefa(idConfirmacaoCancelar)" class="btn btn-default" data-dismiss="modal">
+                                                 <span class="glyphicon glyphicon-disk-saved" aria-hidden="true"></span> Sim
+                                               </button>
+                                               <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                                            </center>
                                         </div>
-                                        <br>
-                                        <center> <button type="button" class="btn btn-default" data-dismiss="modal">Não</button></center>
+
 
                                     </div>
 

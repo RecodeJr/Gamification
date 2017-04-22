@@ -19,7 +19,10 @@ angular.module('my.services', [])
               $http.post(baseUrl + '/usuario/criarTarefa', data).success(success).error(error)
             },
             tarefa: function(data, success, error) {
-              $http.get(baseUrl + '/usuario/tarefa', data).success(success).error(error);
+              $http.post(baseUrl + '/usuario/tarefas', data).success(success).error(error);
+            },
+            pegarTarefa: function(data, success, error) {
+              $http.post(baseUrl + '/usuario/pegarTarefa', data).success(success).error(error);
             },
             cancelarTarefa: function(data, success, error) {
               $http.post(baseUrl + '/usuario/cancelarTarefa', data).success(success).error(error);
