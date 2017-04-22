@@ -154,7 +154,6 @@ RoutUsuario.get('/classes', function(req,res){
 RoutUsuario.post('/tarefas', function(req,res){
   var tarefa = new dbfun.Tarefa();
   console.log(req.body);
-
   var status = req.body.idStatusT;
   var idUser = req.body.idUser;
   var qr;
@@ -174,5 +173,17 @@ RoutUsuario.post('/tarefas', function(req,res){
   });
 });
 
+
+RoutUsuario.post('/finalizarTarefa',function(req,res){
+   console.log(req.body);
+   res.json({status: true});
+});
+
+
+
+RoutUsuario.post('/cancelarTarefa',function(req,res){
+   console.log(req.body);
+   res.json({status: true});
+});
 
 module.exports = RoutUsuario;
