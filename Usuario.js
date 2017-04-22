@@ -174,6 +174,13 @@ RoutUsuario.post('/tarefas', function(req,res){
 });
 
 
+RoutUsuario.post('/pegarTarefa',function(req,res){
+   console.log(req.body);
+   res.json({status: true});
+});
+
+
+
 RoutUsuario.post('/finalizarTarefa',function(req,res){
    console.log(req.body);
    res.json({status: true});
