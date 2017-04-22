@@ -165,43 +165,7 @@ angular.module('my.controllers', [])
         }, function(err) {
             console.log(err);
         });
-        $scope.listaTarefa = [{
-                id: 1,
-                titulo: "lalalalalalahahahaha",
-                statusTarefa: "Disponivel",
-                criador: "Júnior",
-                idCriador: 1,
-                idStatusT: 1,
-                idPegou: 1
-            },
-            {
-                id: 2,
-                titulo: "2lalalalalalahahahaha",
-                statusTarefa: "2Disponivel",
-                criador: "Júnior",
-                idCriador: 1,
-                idStatusT: 1
-            },
-            {
-                id: 3,
-                titulo: "3lalalalalalahahahaha",
-                statusTarefa: "3Disponivel",
-                criador: "Júnior",
-                idCriador: 2,
-                idStatusT: 1,
-                idPegou: 1
-            },
-            {
-                id: 4,
-                titulo: "4lalalalalalahahahaha",
-                statusTarefa: "4Disponivel",
-                criador: "4Júnior",
-                idCriador: 1,
-                idStatusT: 1,
-                idPegou: 1
-            }
-
-        ];
+        $scope.listaTarefa = [];
         $scope.tipoTarefa = $routeParams.tipoTarefa;
         var controleTarefas;
         if ($scope.tipoTarefa == 'disponiveis') {
@@ -293,45 +257,35 @@ angular.module('my.controllers', [])
 
         };
         $scope.cancelarTarefa = function(idTarefa) { //Função que muda o status da tarefa para cancelada
-            console.log(idTarefa);
-            for (x in $scope.listaTarefa) { //For para rodar toda a listaTarefa
-                var aux = $scope.listaTarefa[x]; //A variavel aux está recebendo os objetos de listaTarefa por vez
-                if (aux.id == idTarefa) { //Mudando o status da tarefa para CANCELADA
-                    API.cancelarTarefa($scope.listaTarefa[x].id, function(res) { //Enviando o id da tarefa a ser editada
-                        if (res.status) { //Verificando se a tarefa foi atualizada
-                            $scope.alerta = false;
-                            console.log("Tarefa atualizada");
-                        } else {
-                          $scope.alerta = true;
-                            console.log("Erro ao atualizar tarefa");
-                        }
-                    }, function(err) {
-                      $scope.alerta = true;
-                        console.log(err);
-                    });
-                }
-            }
+           API.cancelarTarefa({idTarefa: idTarefa}, function(res) { //Enviando o id da tarefa a ser editada
+               if (res.status) { //Verificando se a tarefa foi atualizada
+                   $scope.alerta = false;
+                   console.log("Tarefa cancelada");
+               } else {
+                 $scope.alerta = true;
+                   console.log("Erro ao cancelar tarefa");
+               }
+           }, function(err) {
+           $scope.alerta = true;
+               console.log(err);
+           });
         };
         $scope.finalizarTarefa = function(idTarefa) {
-            console.log(idTarefa);
-            for (x in $scope.listaTarefa) { //For para rodar toda a listaTarefa
-                var aux = $scope.listaTarefa[x]; //A variavel aux está recebendo os objetos de listaTarefa por vez
-                if (aux.id == idTarefa) { //Mudando o status da tarefa para CANCELADA
-                    API.finalizarTarefa($scope.listaTarefa[x].id, function(res) { //Enviando o id da tarefa a ser editada
+                    API.finalizarTarefa({idTarefa: idTarefa}, function(res) { //Enviando o id da tarefa a ser editada
                         if (res.status) { //Verificando se a tarefa foi atualizada
                           $scope.alerta = false;
-                            console.log("Tarefa atualizada");
+                            console.log("Tarefa finalizada");
                         } else {
                           $scope.alerta = true;
-                            console.log("Erro ao atualizar tarefa");
+                            console.log("Erro ao finalizar tarefa");
                         }
                     }, function(err) {
                       $scope.alerta = true;
                         console.log(err);
                     });
-                }
-            }
         };
+
+
         $scope.confirmacaoFinalizar = function(idTarefa) { //Fazendo a confirmação do botão Finalizar
             $scope.variavelConfirmacaoFinalizar = true; //A variavelConfirmacaoFinalizar é uma variavel auxiliar que está mostrando ou não o botão na view
             $scope.idConfirmacaoFinalizar = idTarefa; //id da tarefa que sera finalizada
