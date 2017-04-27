@@ -47,7 +47,7 @@
                             <td>{{tar.dataCriacao}}</td>
                             <td>{{tar.dataLimite}}</td>
                             <td>
-                                <button ng-if="tipoTarefa == 'disponiveis' || 'emCurso' || 'historico'" type="button" ng-click="leiaMais(tar.idTarefa)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#leiaMaisModal">
+                                <button ng-show="tipoTarefa == 'disponiveis' || tipoTarefa == 'emCurso' || tipoTarefa == 'historico'" type="button" ng-click="leiaMais(tar.idTarefa)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#leiaMaisModal">
                                   <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Leia mais </button>
 
                                 <button ng-if="(tipoTarefa == 'minhasTarefas')" ng-disabled="tar.idCriador != idUser || tar.idStatusT != 1" type="button" ng-click="editarTarefa(tar.idTarefa)" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">
