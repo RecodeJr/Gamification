@@ -165,7 +165,6 @@ angular.module('my.controllers', [])
         }, function(err) {
             console.log(err);
         });
-        $scope.listaTarefa = [];
         $scope.tipoTarefa = $routeParams.tipoTarefa;
         var controleTarefas;
         if ($scope.tipoTarefa == 'disponiveis') {
@@ -227,10 +226,22 @@ angular.module('my.controllers', [])
                 console.log(err);
             });
         }
+
+        $scope.leiaMais = function(idTarefa){
+          console.log(idTarefa);
+          for(x in $scope.listaTarefa){
+            let aux = $scope.listaTarefa[x];
+            console.log(aux.idTarefa);
+            if(aux.idTarefa == idTarefa){
+              $scope.tarefa = aux;
+            }
+          }
+        }
+
         $scope.editarTarefa = function(idTarefa) { //Parametro de entrada é o id da tarefa selecionada
             for (x in $scope.listaTarefa) { //Faz a verificação de qual é a tarefa selecionada na view
                 let aux = $scope.listaTarefa[x];
-                if (aux.id == idTarefa) { //Achada qual é a tarefa é mandada a view a tarefa(que está na variavel aux)
+                if (aux.idTarefa == idTarefa) { //Achada qual é a tarefa é mandada a view a tarefa(que está na variavel aux)
                     $scope.tarefa = aux;
                     $scope.enviarEditarTarefa = function() { //Ao clicar no botão "Editar" entra nessa função e envia a tarefa editada para o back
                         var tarefa = $scope.tarefa;
@@ -297,4 +308,24 @@ angular.module('my.controllers', [])
             $scope.variavelConfirmacaoFinalizar = false; //Desabilitando a confirmação de finalizar caso está tiver sido clicada antes
         };
 
+        $scope.pegarTarefa = function(idTarefa){
+          controleTarefas={
+            idTarefa: idTarefa,
+            idUser: $scope.idUser
+          };
+          API.pegarTarefa(controleTarefas,function(res){
+            if (res.status) { //Verificando se a tarefa foi atualizada
+              $scope.alertaPegar = false;
+                console.log("Tarefa finalizada");
+            } else {
+              $scope.alertaPegar = true;
+                console.log("Erro ao finalizar tarefa");
+            }
+        }, function(err) {
+          $scope.alertaPegar = true;
+            console.log(err);
+        }
+          )
+
+        }
     }]);
