@@ -24,6 +24,17 @@
                     <label><input type="checkbox" ng-model="filtroMarketing" value=""> Marketing</label> | <label><input type="checkbox" ng-model="filtroMarketing" value=""> Projetos</label>
                     <select name="classe" class="form-control"  ng-model="cl.classe" ng-options="classe.nomeClasse for classe in listaClasse"   required ></select>
                   </div> -->
+                    <div ng-show="tipoTarefa=='minhasTarefas'" class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Filtros
+                          <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><button>Minhas tarefas</button></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a ng-click"">Tarefas Criadas</a></li>
+                        </ul>
+                    </div><br>
                     <table align="center" class="table">
                         <!-- <div class="alert alert-success" ng-if="alerta == false" style="margin-bottom: 12px;" role="alert"><b>Parabéns!</b> A tarefa <b>{{tarefa.titulo}}</b> foi editada com sucesso</div>
                       <div class="alert alert-danger" ng-if="alerta == true" style="margin-bottom: 12px;" role="alert"><b>Erro</b> na edição da tarefa <b>{{tarefa.titulo}}</b></div>
@@ -31,6 +42,7 @@
                         <div class="alert alert-success" ng-if="alerta == false" style="margin: 8px;" role="alert"><b>Parabéns!</b> Tarefa editada com sucesso.</div> -->
 
                         <tr>
+
                             <th>Tarefa</th>
                             <th>Status</th>
                             <th>Criador</th>
@@ -75,19 +87,25 @@
 
                                     <div class="modal-body">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <br><div class="row" style="margin: 10px">
+                                        <br>
+                                        <div class="row" style="margin: 10px">
 
                                             <div class="thumbnail">
                                                 <div class="caption">
                                                     <h3><b>Título:</b>  {{tarefa.titulo}}</h3>
-                                                    <br><p><b>Descrição:</b> {{tarefa.descricao}}</p>
-                                                    <br><p><b>Status:</b> {{tarefa.nomeStatus}}</p>
-                                                    <br><p><b>Data de criação:</b> {{tarefa.dataCriacao}}</p>
-                                                    <br><p><b>Data limite:</b> {{tarefa.dataLimite}}</p>
-                                                    <br><p><b>Classe:</b> {{tarefa.classe}}</p>
+                                                    <br>
+                                                    <p><b>Descrição:</b> {{tarefa.descricao}}</p>
+                                                    <br>
+                                                    <p><b>Status:</b> {{tarefa.nomeStatus}}</p>
+                                                    <br>
+                                                    <p><b>Data de criação:</b> {{tarefa.dataCriacao}}</p>
+                                                    <br>
+                                                    <p><b>Data limite:</b> {{tarefa.dataLimite}}</p>
+                                                    <br>
+                                                    <p><b>Classe:</b> {{tarefa.classe}}</p>
                                                 </div>
                                             </div>
-                                            <center><button type="button" ng-show="tipoTarefa == 'disponiveis'" class="btn btn-primary" data-dismiss="modal">Pegar</button> <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button></center>
+                                            <center><button type="button" ng-show="tipoTarefa == 'disponiveis'" ng-click="pegarTarefa(tarefa.idTarefa)" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#confirmacaoPegar">Pegar</button>                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button></center>
                                         </div>
 
                                     </div>
@@ -95,6 +113,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div id="confirmacaoPegar" class="modal fade" role="dialog">
+
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <button type="button" class="close" data-dismiss="modal" style="margin: 10px;">&times;</button>
+                                <div ng-show="alertaPegar" class="alert alert-danger" role="alert"><b>Erro</b> ao pegar tarefa</div>
+                                <div ng-show="alertaPegar==false" class="alert alert-success" role="alert"><b>Tarefa</b> foi pega com sucesso. Boa sorte!</div>
+                            </div>
+                        </div>
+
                         <!-- <td>
 
                                                     <span ng-hide="variavelConfirmacaoFinalizar && idConfirmacaoFinalizar==tar.id">Confirma a finalização?</span> <button type="button" ng-click="finalizarTarefa(tar.id)" ng-if="variavelConfirmacaoFinalizar && idConfirmacaoFinalizar==tar.id"

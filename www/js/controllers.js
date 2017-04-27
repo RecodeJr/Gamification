@@ -347,4 +347,24 @@ angular.module('my.controllers', [])
             $scope.variavelConfirmacaoFinalizar = false; //Desabilitando a confirmação de finalizar caso está tiver sido clicada antes
         };
 
+        $scope.pegarTarefa = function(idTarefa){
+          controleTarefas={
+            idTarefa: idTarefa,
+            idUser: $scope.idUser
+          };
+          API.pegarTarefa(controleTarefas,function(res){
+            if (res.status) { //Verificando se a tarefa foi atualizada
+              $scope.alertaPegar = false;
+                console.log("Tarefa finalizada");
+            } else {
+              $scope.alertaPegar = true;
+                console.log("Erro ao finalizar tarefa");
+            }
+        }, function(err) {
+          $scope.alertaPegar = true;
+            console.log(err);
+        }
+          )
+
+        }
     }]);
